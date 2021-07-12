@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146824308-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-146824308-1');
+    </script>
+            
+    <meta charset="utf-8">
+    <title>Mapping Strava Activities</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <link rel="manifest" href="../favicon/site.webmanifest">
+
+    <!-- Facebook Opengraph -->
+    <meta property="og:url" content="http://cultureplot.com/strava-heatmap/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Mapping Strava Activities" />
+    <meta property="og:description" content="Connect to strava to visualize your Strava activities in a fully customizable dashboard"/>
+
+    <meta property="og:image" content="https://cultureplot.com/img/chicago_run_map.png" />
+    <meta property="og:image:alt" content="Strava activity heatmap" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://cultureplot.com/img/chicago_run_map.png" />
+    <meta name="twitter:image:alt" content="Strava activity heatmap" />
+    <meta name="twitter:description" content="Visualize Your Strava Activities In A Fully Customizable Dashboard"/>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/jieter/Leaflet.encoded/master/Polyline.encoded.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="css/BigImage.css">
+    <script src="js/BigImage.js"></script>
+  </head>
+
+  <body>
+
+    <img id="preview" src="img/activity_heatmap.png">
+    <div class="loader" id="loader"></div>
+    
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Strava Activity Heatmap</h2>
+        </div>
+        <div class="modal-body">
+          <p>This tool will plot every single run, ride, and hike you've ever uploaded to Strava. You can filter activities by date, start time, and activity type. Additionally, everything in the map - from the colors to the opacity of the lines - is customizable. Take advantage of all these options, and when you've created a work of art, use the camera button in the top left of the screen to save your work.</p>
+          <p>To get started, click the button below to authorize a connection between Strava and Cultureplot. None of your data is saved or stored anywhere on this site.</p>
+          <div style="text-align:center;"><a class="stravaButton" href="https://www.strava.com/oauth/authorize?client_id=47842&response_type=code&redirect_uri=https://cultureplot.com/strava-heatmap/index.html&approval_prompt=auto&scope=activity:read_all"><img id="strava-button-img" class="stravaButton" src="img/btn_strava_connect.png"></a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- the map -->
+    <div id="map" style="width:100%; height:100%; display:none;"></div>
+    <!--  -->
+
+    <!-- div container to hold menu items -->
+    <div id="menuContainer" class="menuContainer">
+
+      <!-- a menu for filtering options -->
+      <div id="filterMenu" class="menu">
+        <div id="menuHeaderContainer1" class="menuHeaderContainer">
+          <table style="width:100%;">
+            <tr style="width:100%;">
+              <td class="menuHeader">Filters</td>
+              <td id="menuButton1" class="menuButton">+</td>
+            </tr>
+          </table>
+        </div>
+
+        <table id="filterMenuTable" class="filterMenuTable">
+          <tr>
+            <td id="dateLabel" class="menuItemLabel">Any Date</td>
+            <td><div id="dateSlider" class="dateSlider"></div></td>
+          </tr>
+          <tr>
+            <td id="timeLabel" class="menuItemLabel">Any Time</td>
+            <td><div id="timeSlider" class="timeSlider"></div></td>
+          </tr>
+          <tr id="activitiesRow">
+            <td class="menuItemLabel">Activities</td>
+            <td>
+              <input type="checkbox" id="rideBox" name="activity2" value="Ride" checked=True class="activityCheckbox">
+              <label for="activity2" id="rideBoxLabel" style="margin-right:20px;"> Rides</label>
+              <input type="checkbox" id="runBox" name="activity1" value="Run" checked=True class="activityCheckbox">
+              <label for="activity1" id="runBoxLabel"> Runs</label>
+              <br>
+              <input type="checkbox" id="hikeBox" name="activity3" value="Hike" checked=True class="activityCheckbox">
+              <label for="activity3" id="hikeBoxLabel" style="margin-right:20px;"> Hikes</label> 
+              <input type="checkbox" id="walkBox" name="activity4" value="Walk" checked=True class="activityCheckbox">
+              <label for="activity4" id="walkBoxLabel"> Walks</label>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--  -->
+
+      <!-- a menu for customizing the appearance -->
+      <div id="filterMenu" class="menu" style="border-top: none; border-bottom: none;">
+        <div id="menuHeaderContainer3" class="menuHeaderContainer">
+          <table style="width:100%;">
+            <tr style="width:100%;">
+              <td class="menuHeader">Settings</td>
+              <td id="menuButton3" class="menuButton">+</td>
+            </tr>
+          </table>
+        </div>
+
+        <table id="customizeMenuTable" class="filterMenuTable">
+          <tr>
+            <td style="width:30%;">
+              Map
+            </td>
+            <td>
+              <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
+              <label for="mapOption1" id="runBoxLabel"> None</label>
+            
+              <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
+              <label for="mapOption2" id="runBoxLabel"> Light</label>
+            
+              <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
+              <label for="mapOption3" id="runBoxLabel"> Dark</label>
+            </td>
+          </tr>
+          <tr id="backgroundColorPicker">
+            <td>Background Color</td>
+            <td><input id="backgroundColor" type="color" value="#000000"></td>
+          </tr>
+          <tr>
+            <td>Line Color</td>
+            <td><input id="lineColor" type="color" value="#008080"></td>
+          </tr>
+          <tr>
+            <td>Line Thickness</td>
+            <td><div id="thicknessSlider"></div></td>
+          </tr>
+          <tr>
+            <td>Line Opacity</td>
+            <td><div id="alphaSlider"></div></td>
+          </tr>
+        </table>
+      </div>
+      <!--  -->
+
+    <!-- a menu for programatically jumping around the map -->
+    <div id="jumperMenu" class="menu">
+      <div id="menuHeaderContainer2" class="menuHeaderContainer">
+        <table style="width:100%;">
+          <tr style="width:100%;">
+            <td class="menuHeader">Jump to...</td>
+            <td id="menuButton2" class="menuButton">+</td>
+          </tr>
+        </table>
+      </div>
+
+      <table id="jumperTable" class="filterMenuTable"></table>
+    </div>
+    <!--  -->
+    
+    </div>
+
+    
+    <script src="js/script.js?v=2"></script>
+    <script src="js/ui.js?v=2"></script>
+    <script src="js/strava_api.js"></script>
+
+  </body>
+</html>

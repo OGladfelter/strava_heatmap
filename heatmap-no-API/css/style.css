@@ -1,0 +1,154 @@
+body{
+    background-color:black;
+}
+
+.leaflet-container{ background: black; }
+
+
+.menuContainer{
+    z-index:999;
+    position:fixed;
+    top:10;
+    right:10;
+    width: 20%;
+    padding-left: 10;
+    padding-right: 10;
+}
+
+.menu{
+    width: 100%;
+    background-color: white;
+    border: 1px black solid;
+    margin-bottom: 0px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    opacity: 0.9;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}
+
+.menuHeaderContainer{
+    background-color: rgb(240, 240, 240);
+}
+
+.menuHeaderContainer:hover{
+    background-color: white;
+    cursor: pointer;
+}
+tr.rowButton:hover{
+    background-color: rgb(240, 240, 240);
+    cursor: pointer;
+}
+
+.menuHeader{
+    font-size: 16px;
+    display:inline-flex;
+    width: 100%;
+}
+.menuButton{
+   text-align: right;
+   font-weight: bold;
+}
+
+.menuItem{
+    border-top: 1px solid gray;
+    margin-bottom: 15px;
+}
+
+.filterMenuTable{
+    width: 100%;
+    border-collapse: collapse;
+    display: none;
+    font-size: 16px;
+}
+td.menuItemLabel{
+    width: 30%;
+}
+tr{
+    border-top: 1px solid rgb(220, 220, 220);
+}
+td{
+    /* border: 1px solid gray; */
+    padding: 10;
+    align: middle;
+}
+
+p{
+    font-size: 16px;
+}
+
+.ui-widget-header{
+    background-image:none;
+    background-color:orange;
+    text-align: center;
+    margin: auto;
+}
+.ui-slider{
+    margin: 10;
+}
+.ui-slider .ui-slider-handle {
+    height: 15px;
+    width: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-color: black;
+    border-radius: 5px;
+    background-color: orangered;
+}
+.ui-slider:hover .ui-slider-handle:hover {
+    cursor: w-resize;
+}
+.ui-widget{
+    cursor: w-resize;
+}
+
+td img{
+    display: none;
+}
+
+.myCSSClass {
+    background: whitesmoke;
+    opacity: 1;
+    font-size: 14px;
+    border: 1px solid black;
+    text-align: center;
+    width: 200px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word; 
+    top: 100;
+}
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border: none !important;
+}
+
+select{
+    width: 50%;
+    font-size: 16px;
+}
+option{
+    padding: 2;
+    margin-left: 2px;
+}
+
+@media only screen and (max-width: 600px) {
+    .menuContainer{
+        z-index:999;
+        position:fixed;
+        top: initial;
+        bottom: 0;
+        width: 90%;
+        padding-left: 10;
+        padding-right: 10;
+        margin: auto;
+    }
+  }
+

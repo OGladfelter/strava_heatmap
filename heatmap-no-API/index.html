@@ -1,0 +1,140 @@
+<html>
+  <head>
+            
+    <meta charset="utf-8">
+    <title>Mapping Strava Activities</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="text/javascript" src="https://rawgit.com/jieter/Leaflet.encoded/master/Polyline.encoded.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="stylesheet" href="css/BigImage.css">
+    <script src="js/BigImage.js"></script>
+  </head>
+
+  <body>
+
+    <!-- the map -->
+    <div id="map" style="width:100%; height:100%"></div>
+    <!--  -->
+
+    <!-- div container to hold menu items -->
+    <div class="menuContainer">
+
+      <!-- a menu for filtering options -->
+      <div id="filterMenu" class="menu">
+        <div id="menuHeaderContainer1" class="menuHeaderContainer">
+          <table style="width:100%;">
+            <tr style="width:100%;">
+              <td class="menuHeader">Filters</td>
+              <td id="menuButton1" class="menuButton">+</td>
+            </tr>
+          </table>
+        </div>
+
+        <table id="filterMenuTable" class="filterMenuTable">
+          <tr>
+            <td id="dateLabel" class="menuItemLabel">Any Date</td>
+            <td><div id="dateSlider" class="dateSlider"></div></td>
+          </tr>
+          <tr>
+            <td id="timeLabel" class="menuItemLabel">Any Time</td>
+            <td><div id="timeSlider" class="timeSlider"></div></td>
+          </tr>
+          <tr id="activitiesRow">
+            <td class="menuItemLabel">Activities</td>
+            <td>
+              <input type="checkbox" id="rideBox" name="activity2" value="Ride" checked=True class="activityCheckbox">
+              <label for="activity2" id="rideBoxLabel" style="margin-right:20px;"> Rides</label>
+              <input type="checkbox" id="runBox" name="activity1" value="Run" checked=True class="activityCheckbox">
+              <label for="activity1" id="runBoxLabel"> Runs</label>
+              <br>
+              <input type="checkbox" id="hikeBox" name="activity3" value="Hike" checked=True class="activityCheckbox">
+              <label for="activity3" id="hikeBoxLabel" style="margin-right:20px;"> Hikes</label> 
+              <input type="checkbox" id="walkBox" name="activity4" value="Walk" checked=True class="activityCheckbox">
+              <label for="activity4" id="walkBoxLabel"> Walks</label>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!--  -->
+
+      <!-- a menu for customizing the appearance -->
+      <div id="filterMenu" class="menu" style="border-top: none; border-bottom: none;">
+        <div id="menuHeaderContainer3" class="menuHeaderContainer">
+          <table style="width:100%;">
+            <tr style="width:100%;">
+              <td class="menuHeader">Settings</td>
+              <td id="menuButton3" class="menuButton">+</td>
+            </tr>
+          </table>
+        </div>
+
+        <table id="customizeMenuTable" class="filterMenuTable">
+          <!-- <td style="width:40%;">Show Map</td>
+            <td><input type="checkbox" id="tilesBox"></td> -->
+          <tr>
+            <td style="width:30%;">
+              Map
+            </td>
+            <td>
+              <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
+              <label for="mapOption1" id="runBoxLabel"> None</label>
+            
+              <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
+              <label for="mapOption2" id="runBoxLabel"> Light</label>
+            
+              <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
+              <label for="mapOption3" id="runBoxLabel"> Dark</label>
+            </td>
+          </tr>
+          <tr id="backgroundColorPicker">
+            <td>Background</td>
+            <td><input id="backgroundColor" type="color" value="#000000"></td>
+          </tr>
+          <tr>
+            <td>Line Color</td>
+            <td><input id="lineColor" type="color" value="#008080"></td>
+          </tr>
+          <tr>
+            <td>Line Thickness</td>
+            <td><div id="thicknessSlider"></div></td>
+          </tr>
+          <tr>
+            <td>Line Opacity</td>
+            <td><div id="alphaSlider"></div></td>
+          </tr>
+        </table>
+      </div>
+      <!--  -->
+
+    <!-- a menu for programatically jumping around the map -->
+    <div id="jumperMenu" class="menu">
+      <div id="menuHeaderContainer2" class="menuHeaderContainer">
+        <table style="width:100%;">
+          <tr style="width:100%;">
+            <td class="menuHeader">Jump to...</td>
+            <td id="menuButton2" class="menuButton">+</td>
+          </tr>
+        </table>
+      </div>
+
+      <table id="jumperTable" class="filterMenuTable"></table>
+    </div>
+    <!--  -->
+    
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script src="js/ui.js"></script>
+
+  </body>
+</html>

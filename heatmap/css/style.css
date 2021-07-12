@@ -1,0 +1,268 @@
+body{
+    background-color:black;
+}
+
+.leaflet-container{ background: black; }
+
+
+.menuContainer{
+    z-index:999;
+    position:fixed;
+    top:10;
+    right:10;
+    width: 20%;
+    padding-left: 10;
+    padding-right: 10;
+    display: none;
+}
+
+.menu{
+    width: 100%;
+    background-color: white;
+    border: 1px black solid;
+    margin-bottom: 0px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    opacity: 0.9;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}
+
+.menuHeaderContainer{
+    background-color: rgb(240, 240, 240);
+}
+
+.menuHeaderContainer:hover{
+    background-color: white;
+    cursor: pointer;
+}
+tr.rowButton:hover{
+    background-color: rgb(240, 240, 240);
+    cursor: pointer;
+}
+
+.menuHeader{
+    font-size: 16px;
+    display:inline-flex;
+    width: 100%;
+}
+.menuButton{
+   text-align: right;
+   font-weight: bold;
+}
+
+.menuItem{
+    border-top: 1px solid gray;
+    margin-bottom: 15px;
+}
+
+.filterMenuTable{
+    width: 100%;
+    border-collapse: collapse;
+    display: none;
+    font-size: 16px;
+}
+td.menuItemLabel{
+    width: 30%;
+}
+tr{
+    border-top: 1px solid rgb(220, 220, 220);
+}
+td{
+    /* border: 1px solid gray; */
+    padding: 10;
+    align: middle;
+}
+
+p{
+    font-size: 16px;
+}
+
+.ui-widget-header{
+    background-image:none;
+    background-color:orange;
+    text-align: center;
+    margin: auto;
+}
+.ui-slider{
+    margin: 10;
+}
+.ui-slider .ui-slider-handle {
+    height: 15px;
+    width: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+    border-color: black;
+    border-radius: 5px;
+    background-color: orangered;
+}
+.ui-slider:hover .ui-slider-handle:hover {
+    cursor: w-resize;
+}
+.ui-widget{
+    cursor: w-resize;
+}
+
+td img{
+    display: none;
+}
+
+.myCSSClass {
+    background: whitesmoke;
+    opacity: 1;
+    font-size: 14px;
+    border: 1px solid black;
+    text-align: center;
+    width: 200px;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word; 
+    top: 100;
+}
+.leaflet-tooltip-top:before, 
+.leaflet-tooltip-bottom:before, 
+.leaflet-tooltip-left:before, 
+.leaflet-tooltip-right:before {
+    border: none !important;
+}
+
+  
+/* The Modal (background) */
+.modal {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 91; /* Sit on top */
+    padding-top: 0px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: whitesmoke;
+    margin: auto;
+    padding: 0;
+    width: 50%;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 1.5s;
+    animation-name: animatetop;
+    animation-duration: 1.5s;
+    top: 25%;
+    padding: 12px;
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:25%; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:25%; opacity:1}
+  }
+  
+  /* The Close Button */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  h2{
+      padding: 8px;
+      margin: 0;
+  }
+
+  p{
+      font-size: 18px;
+  }
+  
+  .modal-header {
+    padding: 2px;
+    background-color: whitesmoke;
+    color: black;
+    border-bottom: 1px gray solid;
+  }
+  
+.modal-body {padding: 2px;}
+  
+.stravaButton{
+    width: 30%;
+}
+
+
+#preview{
+    height: 98vh;
+    width: 98vw;
+}
+
+.loader {
+    border: 16px solid white; /* Light grey */
+    border-top: 16px solid rgb(0, 224, 224); /* Blue */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    display: none;
+    margin-top: 10%;
+}
+
+@media only screen and (max-width: 600px) {
+    .menuContainer{
+        z-index:999;
+        position:fixed;
+        top: initial;
+        bottom: 0;
+        width: 90%;
+        padding-left: 10;
+        padding-right: 10;
+        margin: auto;
+    }
+
+    .modal-content{
+        width: 90%;
+        top: 10%;
+    }
+
+     /* Add Animation */
+    @-webkit-keyframes animatetop {
+        from {top:-300px; opacity:0} 
+        to {top:10%; opacity:1}
+    }
+    
+    @keyframes animatetop {
+        from {top:-300px; opacity:0}
+        to {top:10%; opacity:1}
+    }
+
+    .stravaButton{
+        width: 50%;
+    }
+  }
+
+
