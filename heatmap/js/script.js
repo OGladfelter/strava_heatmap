@@ -335,7 +335,7 @@ function drawHeatmap(data){
     });
 
     // hide some shit, show some shit
-    document.getElementById("loader").style.display="none";
+    document.getElementById("loaderModal").style.display="none";
     document.getElementById("preview").style.display = "none";
     document.getElementById("map").style.display = 'block';
     document.getElementById("menuContainer").style.display = 'block';
