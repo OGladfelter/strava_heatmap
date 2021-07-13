@@ -1,8 +1,8 @@
 body{
-    background-color:black;
+    background-color:#00105e;
 }
 
-.leaflet-container{ background: black; }
+.leaflet-container{ background: #00105e; }
 
 
 .menuContainer{
@@ -30,11 +30,11 @@ body{
 }
 
 .menuHeaderContainer{
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(190, 190, 190);
 }
 
 .menuHeaderContainer:hover{
-    background-color: white;
+    background-color: rgb(210, 210, 210);
     cursor: pointer;
 }
 tr.rowButton:hover{
@@ -72,7 +72,7 @@ tr{
 td{
     /* border: 1px solid gray; */
     padding: 10;
-    align: middle;
+    text-align: middle;
 }
 
 p{
@@ -134,7 +134,7 @@ td img{
   
 /* The Modal (background) */
 .modal {
-    display: block; /* Hidden by default */
+    display: block;
     position: fixed; /* Stay in place */
     z-index: 91; /* Sit on top */
     padding-top: 0px; /* Location of the box */
@@ -162,19 +162,25 @@ td img{
     -webkit-animation-duration: 1.5s;
     animation-name: animatetop;
     animation-duration: 1.5s;
-    top: 25%;
+    top: 2.5%;
     padding: 12px;
+  }
+
+  .modal-content h1{
+      color: whitesmoke;
+      text-align: center;
+      margin: 0;
   }
   
   /* Add Animation */
   @-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:25%; opacity:1}
+    from {top:-300px;} 
+    to {top:2.5%;}
   }
   
   @keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:25%; opacity:1}
+    from {top:-300px;}
+    to {top:2.5%;}
   }
   
   /* The Close Button */
@@ -228,8 +234,8 @@ td img{
     height: 60px;
     animation: spin 2s linear infinite;
     margin: auto;
-    display: none;
-    margin-top: 10%;
+    display: block;
+    margin-top: 2.5%;
 }
 
 @media only screen and (max-width: 600px) {
@@ -251,13 +257,13 @@ td img{
 
      /* Add Animation */
     @-webkit-keyframes animatetop {
-        from {top:-300px; opacity:0} 
-        to {top:10%; opacity:1}
+        from {top:-300px;} 
+        to {top:10%;}
     }
     
     @keyframes animatetop {
-        from {top:-300px; opacity:0}
-        to {top:10%; opacity:1}
+        from {top:-300px;}
+        to {top:10%;}
     }
 
     .stravaButton{

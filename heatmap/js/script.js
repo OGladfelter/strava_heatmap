@@ -1,21 +1,13 @@
 function drawHeatmap(data){
 
-// hide some shit, show some shit
-document.getElementById("loader").style.display="none";
-document.getElementById("map").style.display = 'block';
-document.getElementById("menuContainer").style.display = 'block';
+    var map = L.map('map', {minZoom:3, maxZoom:25, maxBoundsViscosity:1});
+    map.setMaxBounds([[-90,-180], [90,180]]);
 
-var map = L.map('map', {minZoom:3, maxZoom:25, maxBoundsViscosity:1});
-map.setMaxBounds([[-90,-180], [90,180]]);
-
-// icon allowing users to download screenshots
-L.control.bigImage().addTo(map);
-
-// read and map data
-//d3.csv("data/activities.csv", function(data){
+    // icon allowing users to download screenshots
+    L.control.bigImage().addTo(map);
 
     // setView of map on most recent starting position start_latitude,start_longitude
-    map.setView([data[0]['start_latitude'], data[0]['start_longitude']], 13);
+    map.setView([parseFloat(data[0]['start_latitude']), parseFloat(data[0]['start_longitude'])], 13);
 
     mapTilesLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -65,7 +57,7 @@ L.control.bigImage().addTo(map);
 
     // add rows to jumper table
     updateJumperTable();
-    
+
     // if there's only one type of activity, hide the activity row in filter menu
     if (activityTypes.length == 1){
         document.getElementById("activitiesRow").style.display = "none";
@@ -99,7 +91,7 @@ L.control.bigImage().addTo(map);
         paths[data[i].id] = L.polyline(
             coordinates,
             {
-                color: 'rgb(0,128,128)',
+                color: 'rgb(0,224,224)',
                 weight: 2,
                 opacity: .25,
                 lineJoin: 'round',
@@ -116,7 +108,7 @@ L.control.bigImage().addTo(map);
     function filterActivities(date1, date2, time1, time2){
         // take date1 and date2 as date objects
         // time1 and time2 are integers. Number of minutes into day. For example, 7:43 = 1183 (9 hours * 60 + 43 minute)
- 
+
         d3.selectAll("path").style("display","none");
 
         // if date were given in "YYYY-MM-DD" format, I would need to format it like so:
@@ -131,7 +123,7 @@ L.control.bigImage().addTo(map);
             paths[subset[i].id]._path.style.display = "initial";
         }
     }
-    
+
     // get min and max dates in epoch time (seconds from something)
     var minDate = d3.min(data, function(d) { return d.date; }).getTime() / 1000;
     var maxDate = d3.max(data, function(d) { return d.date; }).getTime() / 1000;
@@ -139,12 +131,12 @@ L.control.bigImage().addTo(map);
     // add date slider + function
     $(function(){
         $("#dateSlider").slider({
-          range: true,
-          min: minDate,
-          max: maxDate,
-          step: 86400,
-          values: [minDate, maxDate],
-          slide: function(event, ui){
+            range: true,
+            min: minDate,
+            max: maxDate,
+            step: 86400,
+            values: [minDate, maxDate],
+            slide: function(event, ui){
 
             // reformat EPOS seconds back into date object
             var newMinDate = new Date(ui.values[0] * 1000);
@@ -163,7 +155,7 @@ L.control.bigImage().addTo(map);
 
             // call function to update map
             filterActivities(newMinDate, newMaxDate, times[0], times[1]);
-          }
+            }
         });
     });
 
@@ -194,7 +186,7 @@ L.control.bigImage().addTo(map);
                 else if (hours > 12){hours = hours - 12; period = "pm"};
                 if(minutes.toString().length == 1){minutes = '0' + minutes};
                 var endTime = hours+':'+minutes+period;
- 
+
                 // update Start Time text label
                 if (ui.values[0]==0 & ui.values[1]==1425){
                     $('#timeLabel').text("Any time");
@@ -303,12 +295,12 @@ L.control.bigImage().addTo(map);
         }
 
         // loop over rows, relabel using API
-        var rows = table.rows;
-        for (row=0;row<rows.length;row++){
-            reverse_geocode(rows[row].id);
-            //reverse_geocode_no_php(rows[row].id)
-            //console.log("hi");
-        }
+        // var rows = table.rows;
+        // for (row=0;row<rows.length;row++){
+        //     reverse_geocode(rows[row].id);
+        //     //reverse_geocode_no_php(rows[row].id)
+        //     //console.log("hi");
+        // }
     }
 
     // hover over any path to highlight it
@@ -321,8 +313,6 @@ L.control.bigImage().addTo(map);
         d3.select(this).style('stroke', document.getElementById("lineColor").value);
         d3.select(this).style('stroke-opacity', 0.25 * $('#alphaSlider').slider("option", "value"));
     });
-
-//});
 
     // customization menu item - click radio buttons to turn map tiles on/off
     document.getElementById("noMapButton").addEventListener("click", function() { 
@@ -344,4 +334,9 @@ L.control.bigImage().addTo(map);
         document.getElementById("backgroundColorPicker").style.display = "none";
     });
 
+    // hide some shit, show some shit
+    document.getElementById("loader").style.display="none";
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("map").style.display = 'block';
+    document.getElementById("menuContainer").style.display = 'block';
 }

@@ -1,9 +1,3 @@
-// Get the modalclose button and set an onclick function
-var span = document.getElementsByClassName("close")[0];
-span.onclick = function() {
-    document.getElementById("myModal").style.display = "none";
-}
-
 // click divs to show / hide menus
 document.getElementById("menuHeaderContainer1").addEventListener("click", function() {
     if (document.getElementById("filterMenuTable").style.display == "table"){
@@ -77,28 +71,28 @@ $(function() {
 });
 
 var latlngDict = {};
-function reverse_geocode(latlng){
+// function reverse_geocode(latlng){
     
-    // save an API call, see if we've already looked this info up
-    if (latlng in latlngDict){
-        document.getElementById(latlng).cells[0].innerHTML = latlngDict[latlng];
-        return // don't run anything else
-    }
-    else{
-        $.ajax({
-            url: 'geocode.php',
-            type: "GET",
-            data: ({'latlng':latlng}),
-            complete: function(resp){
-                var response = resp.responseText;
-                data = JSON.parse(response);
-                var API_result = data.results[0].address_components[0].short_name;
-                document.getElementById(latlng).cells[0].innerHTML = API_result;
-                latlngDict[latlng] = API_result;
-            }
-        });  
-    }
-}
+//     // save an API call, see if we've already looked this info up
+//     if (latlng in latlngDict){
+//         document.getElementById(latlng).cells[0].innerHTML = latlngDict[latlng];
+//         return // don't run anything else
+//     }
+//     else{
+//         $.ajax({
+//             url: 'geocode.php',
+//             type: "GET",
+//             data: ({'latlng':latlng}),
+//             complete: function(resp){
+//                 var response = resp.responseText;
+//                 data = JSON.parse(response);
+//                 var API_result = data.results[0].address_components[0].short_name;
+//                 document.getElementById(latlng).cells[0].innerHTML = API_result;
+//                 latlngDict[latlng] = API_result;
+//             }
+//         });  
+//     }
+// }
 
 // function reverse_geocode_no_php(latlng){
 
@@ -123,6 +117,6 @@ function reverse_geocode(latlng){
 function cleanAndSetUp(){
     // hide some shit, show some shit
     document.getElementById("myModal").style.display = "none";
-    document.getElementById("preview").style.display = "none";
     document.getElementById("loader").style.display = "block";
+    document.getElementById("video").pause();
 }

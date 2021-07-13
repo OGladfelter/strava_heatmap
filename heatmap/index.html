@@ -47,7 +47,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=2" />
 
     <link rel="stylesheet" href="css/BigImage.css">
     <script src="js/BigImage.js"></script>
@@ -56,7 +56,14 @@
   <body>
 
     <img id="preview" src="img/activity_heatmap.png">
-    <div class="loader" id="loader"></div>
+
+    <!-- modal -->
+    <div id="loaderModal" class="modal">
+      <div id="loader" class="modal-content" style="background-color:transparent; top:10%;">
+        <h1>Loading...</h1>
+        <div class="loader"></div>
+      </div>
+    </div>
     
 
     <!-- The Modal -->
@@ -64,13 +71,19 @@
       <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-header">
-          <span class="close">&times;</span>
           <h2>Strava Activity Heatmap</h2>
         </div>
         <div class="modal-body">
-          <p>This tool will plot every single run, ride, and hike you've ever uploaded to Strava. You can filter activities by date, start time, and activity type. Additionally, everything in the map - from the colors to the opacity of the lines - is customizable. Take advantage of all these options, and when you've created a work of art, use the camera button in the top left of the screen to save your work.</p>
-          <p>To get started, click the button below to authorize a connection between Strava and Cultureplot. None of your data is saved or stored anywhere on this site.</p>
+          <p>This tool will plot every single run, ride, and hike you've ever uploaded to Strava. You can filter activities by date, start time, and activity type. Additionally, everything in the map - from the colors to the opacity of the lines - is customizable. Customize the map to your heart's content, then use the top left camera button to take a screenshot.</p>
+          <p>To get started, click the button below to authorize this page to access your Strava data. None of your data is saved nor stored.</p>
           <div style="text-align:center;"><a class="stravaButton" href="https://www.strava.com/oauth/authorize?client_id=47842&response_type=code&redirect_uri=https://cultureplot.com/strava-heatmap/index.html&approval_prompt=auto&scope=activity:read_all"><img id="strava-button-img" class="stravaButton" src="img/btn_strava_connect.png"></a></div>
+          <p>Here's what's in store for you once you log in (minus the royalty-free elevator music):</p>
+          <div style="text-align:center; margin-top:0px;">
+              <video width="75%" controls muted autoplay loop poster="img/activity_heatmap.png" id="video">
+              <source src="img/video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+          </div>
         </div>
       </div>
     </div>
@@ -126,12 +139,12 @@
           <table style="width:100%;">
             <tr style="width:100%;">
               <td class="menuHeader">Settings</td>
-              <td id="menuButton3" class="menuButton">+</td>
+              <td id="menuButton3" class="menuButton">-</td>
             </tr>
           </table>
         </div>
 
-        <table id="customizeMenuTable" class="filterMenuTable">
+        <table id="customizeMenuTable" class="filterMenuTable" style="display:table;">
           <tr>
             <td style="width:30%;">
               Map
@@ -185,8 +198,8 @@
     </div>
 
     
-    <script src="js/script.js?v=2"></script>
-    <script src="js/ui.js?v=2"></script>
+    <script src="js/script.js?v=3"></script>
+    <script src="js/ui.js?v=3"></script>
     <script src="js/strava_api.js"></script>
 
   </body>
