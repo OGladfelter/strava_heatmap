@@ -1,5 +1,10 @@
 function drawHeatmap(data){
 
+    // hide some shit, show some shit
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("map").style.display = 'block';
+    document.getElementById("menuContainer").style.display = 'block';
+
     var map = L.map('map', {minZoom:3, maxZoom:25, maxBoundsViscosity:1});
     map.setMaxBounds([[-90,-180], [90,180]]);
 
@@ -334,9 +339,5 @@ function drawHeatmap(data){
         document.getElementById("backgroundColorPicker").style.display = "none";
     });
 
-    // hide some shit, show some shit
     document.getElementById("loaderModal").style.display="none";
-    document.getElementById("preview").style.display = "none";
-    document.getElementById("map").style.display = 'block';
-    document.getElementById("menuContainer").style.display = 'block';
 }
