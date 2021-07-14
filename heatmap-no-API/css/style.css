@@ -70,7 +70,7 @@ tr{
 td{
     /* border: 1px solid gray; */
     padding: 10;
-    align: middle;
+    text-align: middle;
 }
 
 p{
@@ -107,23 +107,19 @@ td img{
     display: none;
 }
 
-select {
-    height: 100px;
-    /* width: 100px; */
-    display: block;
-  }
-
   .dropbtn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px;
+    background-color: rgba(255, 166, 0, 0.8);
+    color: black;
+    padding: 10px;
     font-size: 16px;
-    border: none;
+    border: 1px rgb(220, 220, 220) solid;
+    width: 100%;
   }
   
   .dropdown {
-    position: relative;
-    display: inline-block;
+    display: block;
+    width: 100%;
+    margin: auto;
   }
   
   .dropdown-content {
@@ -146,7 +142,22 @@ select {
   
   .dropdown:hover .dropdown-content {display: block;}
   
-  .dropdown:hover .dropbtn {background-color: #3e8e41;}
+  .dropdown:hover .dropbtn {background-color: orange;}
+
+  .checkboxContainer{
+      padding: 10px;
+      cursor: pointer;
+  }
+  .checkboxContainer:hover{
+    background-color:white;
+}
+.checkboxContainer label{
+    pointer-events:none;
+    margin-left: 5px;
+}
+.checkboxContainer input{
+    pointer-events:none;
+}
 
 .show {display: block;}
 

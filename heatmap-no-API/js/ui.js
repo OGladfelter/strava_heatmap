@@ -93,7 +93,7 @@ function reverse_geocode(latlng){
     }
 }
 
-function myFunction() {
+function showActivityMenu() {
     document.getElementById("activityMenu").classList.toggle("show");
 }
   

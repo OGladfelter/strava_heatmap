@@ -55,7 +55,7 @@ d3.csv("data/activities.csv", function(data){
 
     // create array of all unique activity types in user's data
     var activityTypes = d3.map(data, function(d){return d.type;}).keys();
-    console.log(activityTypes);
+    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
 
     // add rows to jumper table
     updateJumperTable();
@@ -81,13 +81,35 @@ d3.csv("data/activities.csv", function(data){
             label.innerHTML = activity + "s";
 
             var container = document.createElement("div");
+            container.classList.add("checkboxContainer");
             container.appendChild(input);
             container.appendChild(label);
+
+            container.addEventListener("click", function(){
+                input.checked ? input.checked = false : input.checked = true;
+
+                if (input.checked) { // if box is checked, add activity from activityTypes
+                    activityTypes.push(activity);
+                    updateJumperTable(); // update data in jumper table
+                } 
+                else { // if box is unchecked, remove activity from activityTypes
+                    const index = activityTypes.indexOf(activity);
+                    if (index > -1) {
+                        activityTypes.splice(index, 1);
+                        updateJumperTable(); // update data in jumper table
+                    }
+                }
+
+                // before updating map, get dates
+                var dates = $('#dateSlider').slider("option", "values");
+                var times = $('#timeSlider').slider("option", "values");
+
+                // call function to update map
+                filterActivities(new Date(dates[0] * 1000), new Date(dates[1] * 1000), times[0], times[1]);
+            });
             div.appendChild(container);
         })
     }
-
-            //   <label for="activity2" id="rideBoxLabel" style="margin-right:20px;"> Rides</label>
 
     // DRAW THE ACTIVITY LINES ONTO THE MAP
     paths = {}
@@ -213,33 +235,6 @@ d3.csv("data/activities.csv", function(data){
             }
         });
     });
-
-    // function for checkboxes
-    // function for checkboxes
-    var checkboxes = document.getElementsByClassName("activityCheckbox");
-    for (i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].addEventListener("change", function() { 
-            var activity = this.value;
-            if (this.checked) { // if box is checked, add activity from activityTypes
-                activityTypes.push(activity);
-                updateJumperTable(); // update data in jumper table
-            } 
-            else { // if box is unchecked, remove activity from activityTypes
-                const index = activityTypes.indexOf(activity);
-                if (index > -1) {
-                    activityTypes.splice(index, 1);
-                    updateJumperTable(); // update data in jumper table
-                }
-            }
-
-            // before updating map, get dates
-            var dates = $('#dateSlider').slider("option", "values");
-            var times = $('#timeSlider').slider("option", "values");
-
-            // call function to update map
-            filterActivities(new Date(dates[0] * 1000), new Date(dates[1] * 1000), times[0], times[1]);
-        });
-    };
 
     ////////////////////////////////////////////////////////////////////////////////
 
