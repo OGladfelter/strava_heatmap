@@ -5,7 +5,7 @@ map.setMaxBounds([[-90,-180], [90,180]]);
 L.control.bigImage().addTo(map);
 
 // read and map data
-d3.csv("data/activities_sample.csv", function(data){
+d3.csv("data/activities.csv", function(data){
 
     // setView of map on most recent starting position start_latitude,start_longitude
     map.setView([data[0]['start_latitude'], data[0]['start_longitude']], 13);
@@ -55,6 +55,7 @@ d3.csv("data/activities_sample.csv", function(data){
 
     // create array of all unique activity types in user's data
     var activityTypes = d3.map(data, function(d){return d.type;}).keys();
+    console.log(activityTypes);
 
     // add rows to jumper table
     updateJumperTable();
@@ -64,24 +65,29 @@ d3.csv("data/activities_sample.csv", function(data){
         document.getElementById("activitiesRow").style.display = "none";
     }
     else{
-        // if any of the 3 activities are missing, hide the checkbox
-        if (!(activityTypes.includes("Hike"))){
-            document.getElementById("hikeBox").style.display = "none";
-            document.getElementById("hikeBoxLabel").style.display = "none";
-        }
-        if (!(activityTypes.includes("Run"))){
-            document.getElementById("runBox").style.display = "none";
-            document.getElementById("runBoxLabel").style.display = "none";
-        }
-        if (!(activityTypes.includes("Ride"))){
-            document.getElementById("rideBox").style.display = "none";
-            document.getElementById("rideBoxLabel").style.display = "none";
-        }
-        if (!(activityTypes.includes("Walk"))){
-            document.getElementById("walkBox").style.display = "none";
-            document.getElementById("walkBoxLabel").style.display = "none";
-        }
+        activityTypes.forEach(function(activity){
+            var div = document.getElementById("activityMenu");
+            var input = document.createElement("input");
+            input.type = "checkbox";
+            input.id = activity + "Box";
+            input.name = activity + "Name";
+            input.value = activity;
+            input.checked = true;
+            input.classList.add("activityCheckbox");
+
+            var label = document.createElement("label");
+            label.for = activity + "Name";
+            label.id = activity + "BoxLabel";
+            label.innerHTML = activity + "s";
+
+            var container = document.createElement("div");
+            container.appendChild(input);
+            container.appendChild(label);
+            div.appendChild(container);
+        })
     }
+
+            //   <label for="activity2" id="rideBoxLabel" style="margin-right:20px;"> Rides</label>
 
     // DRAW THE ACTIVITY LINES ONTO THE MAP
     paths = {}
@@ -209,13 +215,13 @@ d3.csv("data/activities_sample.csv", function(data){
     });
 
     // function for checkboxes
+    // function for checkboxes
     var checkboxes = document.getElementsByClassName("activityCheckbox");
     for (i = 0; i < checkboxes.length; i++) {
         checkboxes[i].addEventListener("change", function() { 
             var activity = this.value;
             if (this.checked) { // if box is checked, add activity from activityTypes
                 activityTypes.push(activity);
-                console.log(activityTypes);
                 updateJumperTable(); // update data in jumper table
             } 
             else { // if box is unchecked, remove activity from activityTypes
@@ -272,7 +278,7 @@ d3.csv("data/activities_sample.csv", function(data){
             var label = activityTypes[0] + "s";
         }
         else{
-            var label= "Activities"
+            var label= "Activities";
         };
 
         // for each of the entries in nest, add a row to table

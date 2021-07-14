@@ -21,7 +21,6 @@
   </head>
 
   <body>
-
     <!-- the map -->
     <div id="map" style="width:100%; height:100%"></div>
     <!--  -->
@@ -50,18 +49,13 @@
             <td><div id="timeSlider" class="timeSlider"></div></td>
           </tr>
           <tr id="activitiesRow">
-            <td class="menuItemLabel">Activities</td>
-            <td>
-              <input type="checkbox" id="rideBox" name="activity2" value="Ride" checked=True class="activityCheckbox">
-              <label for="activity2" id="rideBoxLabel" style="margin-right:20px;"> Rides</label>
-              <input type="checkbox" id="runBox" name="activity1" value="Run" checked=True class="activityCheckbox">
-              <label for="activity1" id="runBoxLabel"> Runs</label>
-              <br>
-              <input type="checkbox" id="hikeBox" name="activity3" value="Hike" checked=True class="activityCheckbox">
-              <label for="activity3" id="hikeBoxLabel" style="margin-right:20px;"> Hikes</label> 
-              <input type="checkbox" id="walkBox" name="activity4" value="Walk" checked=True class="activityCheckbox">
-              <label for="activity4" id="walkBoxLabel"> Walks</label>
-            </td>
+              <!-- <td class="menuItemLabel">Activities</td> -->
+              <td style="width:100%;">
+                  <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">Activities</button>
+                    <div id="activityMenu" class="dropdown-content" style="opacity:1;"></div>
+                  </div>
+              </td>
           </tr>
         </table>
       </div>
