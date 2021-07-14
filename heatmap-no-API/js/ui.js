@@ -69,29 +69,29 @@ $(function() {
     });
 });
 
-var latlngDict = {};
-function reverse_geocode(latlng){
+// var latlngDict = {};
+// function reverse_geocode(latlng){
     
-    // save an API call, see if we've already looked this info up
-    if (latlng in latlngDict){
-        document.getElementById(latlng).cells[0].innerHTML = latlngDict[latlng];
-        return // don't run anything else
-    }
-    else{
-        $.ajax({
-            url: 'geocode.php',
-            type: "GET",
-            data: ({'latlng':latlng}),
-            complete: function(resp){
-                var response = resp.responseText;
-                data = JSON.parse(response);
-                var API_result = data.results[0].address_components[0].short_name;
-                document.getElementById(latlng).cells[0].innerHTML = API_result;
-                latlngDict[latlng] = API_result;
-            }
-        });  
-    }
-}
+//     // save an API call, see if we've already looked this info up
+//     if (latlng in latlngDict){
+//         document.getElementById(latlng).cells[0].innerHTML = latlngDict[latlng];
+//         return // don't run anything else
+//     }
+//     else{
+//         $.ajax({
+//             url: 'geocode.php',
+//             type: "GET",
+//             data: ({'latlng':latlng}),
+//             complete: function(resp){
+//                 var response = resp.responseText;
+//                 data = JSON.parse(response);
+//                 var API_result = data.results[0].address_components[0].short_name;
+//                 document.getElementById(latlng).cells[0].innerHTML = API_result;
+//                 latlngDict[latlng] = API_result;
+//             }
+//         });  
+//     }
+// }
 
 function showActivityMenu() {
     document.getElementById("activityMenu").classList.toggle("show");

@@ -7,6 +7,9 @@ L.control.bigImage().addTo(map);
 // read and map data
 d3.csv("data/activities.csv", function(data){
 
+    // filter out activities without a summary polyline
+    data = data.filter(d => d.summary_polyline != "");
+
     // setView of map on most recent starting position start_latitude,start_longitude
     map.setView([data[0]['start_latitude'], data[0]['start_longitude']], 13);
 
@@ -78,7 +81,7 @@ d3.csv("data/activities.csv", function(data){
             var label = document.createElement("label");
             label.for = activity + "Name";
             label.id = activity + "BoxLabel";
-            label.innerHTML = activity + "s";
+            label.innerHTML = activity.replace(/([A-Z])/g, " $1");
 
             var container = document.createElement("div");
             container.classList.add("checkboxContainer");
@@ -98,6 +101,13 @@ d3.csv("data/activities.csv", function(data){
                         activityTypes.splice(index, 1);
                         updateJumperTable(); // update data in jumper table
                     }
+                }
+
+                if (activityTypes.length == "1"){
+                    document.getElementById("dropdownButton").innerHTML = activityTypes[0].replace(/([A-Z])/g, " $1");
+                }
+                else{
+                    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
                 }
 
                 // before updating map, get dates
@@ -301,11 +311,11 @@ d3.csv("data/activities.csv", function(data){
         }
 
         // loop over rows, relabel using API
-        var rows = table.rows;
-        for (row=0;row<rows.length;row++){
-            reverse_geocode(rows[row].id);
-            //reverse_geocode_no_php(rows[row].id)
-        }
+        // var rows = table.rows;
+        // for (row=0;row<rows.length;row++){
+        //     reverse_geocode(rows[row].id);
+        //     //reverse_geocode_no_php(rows[row].id)
+        // }
     }
 
     // hover over any path to highlight it
