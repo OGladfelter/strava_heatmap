@@ -27,8 +27,8 @@ function drawHeatmap(data){
         noWrap: true
     });
 
-    // filter data to just rides, runs, and hikes
-    data = data.filter(function(d){ return (d.type == "Ride") | (d.type == "Run") | (d.type == "Hike") | (d.type == "Walk") });
+    // filter out activities without a summary polyline
+    data = data.filter(d => d.map['summary_polyline'] != "");
         
     var parseDate = d3.timeParse("%Y-%m-%d");
 
@@ -55,10 +55,11 @@ function drawHeatmap(data){
 
     data = data.filter(function(d){return (isNaN(d.summary_polyline))});
         
-    console.log(data);
+    //console.log(data);
 
     // create array of all unique activity types in user's data
     var activityTypes = d3.map(data, function(d){return d.type;}).keys();
+    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
 
     // add rows to jumper table
     updateJumperTable();
@@ -68,23 +69,57 @@ function drawHeatmap(data){
         document.getElementById("activitiesRow").style.display = "none";
     }
     else{
-        // if any of the 3 activities are missing, hide the checkbox
-        if (!(activityTypes.includes("Hike"))){
-            document.getElementById("hikeBox").style.display = "none";
-            document.getElementById("hikeBoxLabel").style.display = "none";
-        }
-        if (!(activityTypes.includes("Run"))){
-            document.getElementById("runBox").style.display = "none";
-            document.getElementById("runBoxLabel").style.display = "none";
-        }
-        if (!(activityTypes.includes("Ride"))){
-            document.getElementById("rideBox").style.display = "none";
-            document.getElementById("rideBoxLabel").style.display = "none";
-        }
-        if (!(activityTypes.includes("Walk"))){
-            document.getElementById("walkBox").style.display = "none";
-            document.getElementById("walkBoxLabel").style.display = "none";
-        }
+        activityTypes.forEach(function(activity){
+            var div = document.getElementById("activityMenu");
+            var input = document.createElement("input");
+            input.type = "checkbox";
+            input.id = activity + "Box";
+            input.name = activity + "Name";
+            input.value = activity;
+            input.checked = true;
+            input.classList.add("activityCheckbox");
+
+            var label = document.createElement("label");
+            label.for = activity + "Name";
+            label.id = activity + "BoxLabel";
+            label.innerHTML = activity.replace(/([A-Z])/g, " $1");
+
+            var container = document.createElement("div");
+            container.classList.add("checkboxContainer");
+            container.appendChild(input);
+            container.appendChild(label);
+
+            container.addEventListener("click", function(){
+                input.checked ? input.checked = false : input.checked = true;
+
+                if (input.checked) { // if box is checked, add activity from activityTypes
+                    activityTypes.push(activity);
+                    updateJumperTable(); // update data in jumper table
+                } 
+                else { // if box is unchecked, remove activity from activityTypes
+                    const index = activityTypes.indexOf(activity);
+                    if (index > -1) {
+                        activityTypes.splice(index, 1);
+                        updateJumperTable(); // update data in jumper table
+                    }
+                }
+
+                if (activityTypes.length == "1"){
+                    document.getElementById("dropdownButton").innerHTML = activityTypes[0].replace(/([A-Z])/g, " $1");
+                }
+                else{
+                    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
+                }
+
+                // before updating map, get dates
+                var dates = $('#dateSlider').slider("option", "values");
+                var times = $('#timeSlider').slider("option", "values");
+
+                // call function to update map
+                filterActivities(new Date(dates[0] * 1000), new Date(dates[1] * 1000), times[0], times[1]);
+            });
+            div.appendChild(container);
+        });
     }
 
     // DRAW THE ACTIVITY LINES ONTO THE MAP
@@ -209,32 +244,6 @@ function drawHeatmap(data){
         });
     });
 
-    // function for checkboxes
-    var checkboxes = document.getElementsByClassName("activityCheckbox");
-    for (i = 0; i < checkboxes.length; i++) {
-        checkboxes[i].addEventListener("change", function() { 
-            var activity = this.value;
-            if (this.checked) { // if box is checked, add activity from activityTypes
-                activityTypes.push(activity);
-                updateJumperTable(); // update data in jumper table
-            } 
-            else { // if box is unchecked, remove activity from activityTypes
-                const index = activityTypes.indexOf(activity);
-                if (index > -1) {
-                    activityTypes.splice(index, 1);
-                    updateJumperTable(); // update data in jumper table
-                }
-            }
-
-            // before updating map, get dates
-            var dates = $('#dateSlider').slider("option", "values");
-            var times = $('#timeSlider').slider("option", "values");
-
-            // call function to update map
-            filterActivities(new Date(dates[0] * 1000), new Date(dates[1] * 1000), times[0], times[1]);
-        });
-    };
-
     ////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////// interactives -jump to section ////////////////////////
@@ -269,10 +278,10 @@ function drawHeatmap(data){
 
         // how to label the counts?
         if (activityTypes.length == 1){
-            var label = activityTypes[0] + "s";
+            var label = activityTypes[0].toLowerCase() + "s";
         }
         else{
-            var label= "Activities"
+            var label= "Activities";
         };
 
         // for each of the entries in nest, add a row to table

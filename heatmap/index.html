@@ -47,14 +47,13 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="css/style.css?v=2" />
+    <link rel="stylesheet" href="css/style.css?v=3" />
 
     <link rel="stylesheet" href="css/BigImage.css">
     <script src="js/BigImage.js"></script>
   </head>
 
   <body>
-
     <img id="preview" src="img/activity_heatmap.png">
 
     <!-- modal -->
@@ -118,15 +117,10 @@
           <tr id="activitiesRow">
             <td class="menuItemLabel">Activities</td>
             <td>
-              <input type="checkbox" id="rideBox" name="activity2" value="Ride" checked=True class="activityCheckbox">
-              <label for="activity2" id="rideBoxLabel" style="margin-right:20px;"> Rides</label>
-              <input type="checkbox" id="runBox" name="activity1" value="Run" checked=True class="activityCheckbox">
-              <label for="activity1" id="runBoxLabel"> Runs</label>
-              <br>
-              <input type="checkbox" id="hikeBox" name="activity3" value="Hike" checked=True class="activityCheckbox">
-              <label for="activity3" id="hikeBoxLabel" style="margin-right:20px;"> Hikes</label> 
-              <input type="checkbox" id="walkBox" name="activity4" value="Walk" checked=True class="activityCheckbox">
-              <label for="activity4" id="walkBoxLabel"> Walks</label>
+                <div class="dropdown">
+                  <button onclick="showActivityMenu()" class="dropbtn" id="dropdownButton">Activities</button>
+                  <div id="activityMenu" class="dropdown-content" style="opacity:1;"></div>
+                </div>
             </td>
           </tr>
         </table>
@@ -198,7 +192,7 @@
     </div>
 
     
-    <script src="js/script.js?v=3"></script>
+    <script src="js/script.js?v=4"></script>
     <script src="js/ui.js?v=3"></script>
     <script src="js/strava_api.js"></script>
 
