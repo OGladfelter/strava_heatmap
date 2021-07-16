@@ -39,6 +39,9 @@ document.getElementById("backgroundColor").addEventListener("input", function() 
 // customization menu item - line color
 document.getElementById("lineColor").addEventListener("input", function() { 
     d3.selectAll("path").style("stroke",this.value);
+    for (i=0; i<$("#colorByActivityMenu input").length; i++){
+        $("#colorByActivityMenu input")[i].value = this.value;
+    }
 });
 
 // customization menu - line thickness
@@ -92,24 +95,6 @@ $(function() {
 //         });  
 //     }
 // }
-
-function showActivityMenu() {
-    document.getElementById("activityMenu").classList.toggle("show");
-}
-  
-  // Close the dropdown if the user clicks outside of it
-//   window.onclick = function(event) {
-//     if (!event.target.matches('.dropbtn')) {
-//       var dropdowns = document.getElementsByClassName("dropdown-content");
-//       var i;
-//       for (i = 0; i < dropdowns.length; i++) {
-//         var openDropdown = dropdowns[i];
-//         if (openDropdown.classList.contains('show')) {
-//           openDropdown.classList.remove('show');
-//         }
-//       }
-//     }
-//   }
 
 // function reverse_geocode_no_php(latlng){
 
