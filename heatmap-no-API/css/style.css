@@ -107,6 +107,10 @@ td img{
     display: none;
 }
 
+.dropdown {
+    display: inline-block;
+  }
+
   .dropbtn {
     background-color: rgba(255, 166, 0, 0.8);
     color: black;
@@ -119,15 +123,9 @@ td img{
   .dropColorbtn {
     background-color: rgba(255, 166, 0, 0.8);
     color: black;
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
     border: 1px rgb(220, 220, 220) solid;
-  }
-  
-  .dropdown {
-    display: block;
-    width: 100%;
-    margin: auto;
   }
   
   .dropdown-content {
@@ -137,6 +135,7 @@ td img{
     min-width: 160px;
     z-index: 3;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    text-align: left;
   }
   
   .dropdown-content a {

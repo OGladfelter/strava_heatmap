@@ -130,6 +130,7 @@ d3.csv("data/activities.csv", function(data){
                 for (i=0; i<subset.length; i++){
                     paths[subset[i].id]._path.setAttribute("lineColor",this.value);
                     paths[subset[i].id]._path.style.stroke = this.value;
+                    paths[subset[i].id].options.color = this.value; // needed for screenshot
                 }
             });
             colorContainer.appendChild(colorInput);
@@ -151,7 +152,7 @@ d3.csv("data/activities.csv", function(data){
                 weight: 2,
                 opacity: .25,
                 lineJoin: 'round',
-                name: data[i].name
+                name: data[i].name,
             },
         )
         .on('click', function() { 
