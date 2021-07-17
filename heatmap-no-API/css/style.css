@@ -107,10 +107,6 @@ td img{
     display: none;
 }
 
-.dropdown2 {
-    display: inline-block;
-}
-
   .dropbtn {
     background-color: rgba(255, 166, 0, 0.8);
     color: black;

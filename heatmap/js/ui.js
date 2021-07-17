@@ -40,6 +40,9 @@ document.getElementById("backgroundColor").addEventListener("input", function() 
 // customization menu item - line color
 document.getElementById("lineColor").addEventListener("input", function() { 
     d3.selectAll("path").style("stroke",this.value);
+    for (i=0; i<$("#colorByActivityMenu input").length; i++){
+        $("#colorByActivityMenu input")[i].value = this.value;
+    }
 });
 
 // customization menu - line thickness

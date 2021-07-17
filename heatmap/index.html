@@ -47,10 +47,10 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="css/style.css?v=3" />
+    <link rel="stylesheet" href="css/style.css?v=4" />
 
     <link rel="stylesheet" href="css/BigImage.css">
-    <script src="js/BigImage.js"></script>
+    <script src="js/BigImage.js?v=2"></script>
   </head>
 
   <body>
@@ -119,7 +119,7 @@
             <td>
                 <div class="dropdown">
                   <button onclick="showActivityMenu()" class="dropbtn" id="dropdownButton">Activities</button>
-                  <div id="activityMenu" class="dropdown-content" style="opacity:1;"></div>
+                  <div id="activityMenu" class="dropdown-content"></div>
                 </div>
             </td>
           </tr>
@@ -160,7 +160,15 @@
           </tr>
           <tr>
             <td>Line Color</td>
-            <td><input id="lineColor" type="color" value="#00e0e0"></td>
+            <td>
+              <div style="width:33%;display:inline-block;">
+                <input id="lineColor" type="color" value="#00e0e0">
+              </div>
+              <div class="dropdown" style="display:inline-block;">
+                <button class="dropColorbtn">By activity</button>
+                <div id="colorByActivityMenu" class="dropdown-content" style="right:0;"></div>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>Line Thickness</td>
@@ -192,8 +200,8 @@
     </div>
 
     
-    <script src="js/script.js?v=4"></script>
-    <script src="js/ui.js?v=3"></script>
+    <script src="js/script.js?v=5"></script>
+    <script src="js/ui.js?v=4"></script>
     <script src="js/strava_api.js"></script>
 
   </body>

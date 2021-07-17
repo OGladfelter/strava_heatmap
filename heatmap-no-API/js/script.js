@@ -137,7 +137,6 @@ d3.csv("data/activities.csv", function(data){
             var td2 = document.createElement("td");
             td1.innerHTML = activity.replace(/([A-Z])/g, " $1");
             td2.appendChild(colorInput);
-            //colorContainer.appendChild(label.cloneNode(true));
             colorContainer.appendChild(td1);
             colorContainer.appendChild(td2);
             document.getElementById("colorByActivityMenu").appendChild(colorContainer);

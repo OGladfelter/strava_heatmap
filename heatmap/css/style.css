@@ -117,6 +117,14 @@ td img{
     width: 100%;
 }
 
+.dropColorbtn {
+    background-color: rgba(255, 166, 0, 0.8);
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px rgb(220, 220, 220) solid;
+}
+
 .dropdown {
     display: block;
     width: 100%;
@@ -129,7 +137,14 @@ td img{
     background-color: #f1f1f1;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+    z-index: 3;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.dropdown-content tr{
+    border-top: solid black 0px;
 }
 
 .dropdown-content a {
@@ -158,6 +173,20 @@ td img{
 }
 .checkboxContainer input{
     pointer-events:none;
+}
+
+.colorContainer{
+    padding: 10px;
+}
+.colorContainer:hover{
+  background-color:white;
+}
+.colorContainer label{
+  pointer-events:none;
+  margin-left: 5px;
+}
+input[type=color]{
+    cursor: pointer;
 }
 
 .show {display: block;}
