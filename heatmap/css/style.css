@@ -125,12 +125,6 @@ td img{
     border: 1px rgb(220, 220, 220) solid;
 }
 
-.dropdown {
-    display: block;
-    width: 100%;
-    margin: auto;
-}
-
 .dropdown-content {
     display: none;
     position: absolute;
