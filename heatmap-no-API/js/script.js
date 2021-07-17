@@ -119,7 +119,7 @@ d3.csv("data/activities.csv", function(data){
             });
             div.appendChild(container);
 
-            var colorContainer = document.createElement("div");
+            var colorContainer = document.createElement("tr");
             colorContainer.classList.add("colorContainer");
             var colorInput = document.createElement("input");
             colorInput.id = activity + "Color";
@@ -133,8 +133,13 @@ d3.csv("data/activities.csv", function(data){
                     paths[subset[i].id].options.color = this.value; // needed for screenshot
                 }
             });
-            colorContainer.appendChild(colorInput);
-            colorContainer.appendChild(label.cloneNode(true));
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            td1.innerHTML = activity.replace(/([A-Z])/g, " $1");
+            td2.appendChild(colorInput);
+            //colorContainer.appendChild(label.cloneNode(true));
+            colorContainer.appendChild(td1);
+            colorContainer.appendChild(td2);
             document.getElementById("colorByActivityMenu").appendChild(colorContainer);
         })
     }
