@@ -70,6 +70,8 @@ function drawHeatmap(data){
     }
     else{
         activityTypes.forEach(function(activity){
+
+            // for show activity filter
             var div = document.getElementById("activityMenu");
             var input = document.createElement("input");
             input.type = "checkbox";
@@ -119,6 +121,30 @@ function drawHeatmap(data){
                 filterActivities(new Date(dates[0] * 1000), new Date(dates[1] * 1000), times[0], times[1]);
             });
             div.appendChild(container);
+
+            // for color-by-activity inputs
+            var colorContainer = document.createElement("tr");
+            colorContainer.classList.add("colorContainer");
+            var colorInput = document.createElement("input");
+            colorInput.id = activity + "Color";
+            colorInput.type = "color";
+            colorInput.value = "#00e0e0";
+            colorInput.addEventListener("input", function(){
+                var subset = data.filter(function(d){return d.type == activity});
+                for (i=0; i<subset.length; i++){
+                    paths[subset[i].id]._path.setAttribute("lineColor",this.value);
+                    paths[subset[i].id]._path.style.stroke = this.value;
+                    paths[subset[i].id].options.color = this.value; // needed for screenshot
+                }
+            });
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            td1.innerHTML = activity.replace(/([A-Z])/g, " $1");
+            td2.appendChild(colorInput);
+            //colorContainer.appendChild(label.cloneNode(true));
+            colorContainer.appendChild(td1);
+            colorContainer.appendChild(td2);
+            document.getElementById("colorByActivityMenu").appendChild(colorContainer);
         });
     }
 
@@ -324,7 +350,7 @@ function drawHeatmap(data){
         d3.select(this).raise();
     })
     .on("mouseout", function(){
-        d3.select(this).style('stroke', document.getElementById("lineColor").value);
+        d3.select(this).style('stroke', this.getAttribute("lineColor") ? this.getAttribute("lineColor") : document.getElementById("lineColor").value);
         d3.select(this).style('stroke-opacity', 0.25 * $('#alphaSlider').slider("option", "value"));
     });
 

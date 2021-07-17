@@ -171,7 +171,6 @@
                             new_resolve();
                         }
                     } catch (e) {
-                        console.log(e);
                         new_resolve();
                     }
                 }));
@@ -312,7 +311,7 @@
             if (value.closed) self.ctx.closePath();
 
             // plug in correct asthetics
-            options.color = document.getElementById("lineColor").value;
+            //options.color = document.getElementById("lineColor").value;
             options.weight = $('#thicknessSlider').slider("option", "value");
             options.opacity = 0.25 * $('#alphaSlider').slider("option", "value");
 

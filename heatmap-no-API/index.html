@@ -53,7 +53,7 @@
               <td>
                   <div class="dropdown">
                     <button onclick="showActivityMenu()" class="dropbtn" id="dropdownButton">Activities</button>
-                    <div id="activityMenu" class="dropdown-content" style="opacity:1;"></div>
+                    <div id="activityMenu" class="dropdown-content"></div>
                   </div>
               </td>
           </tr>
@@ -92,11 +92,19 @@
           </tr>
           <tr id="backgroundColorPicker">
             <td>Background</td>
-            <td><input id="backgroundColor" type="color" value="#000000"></td>
+            <td><input id="backgroundColor" type="color" value="#000626"></td>
           </tr>
           <tr>
             <td>Line Color</td>
-            <td><input id="lineColor" type="color" value="#008080"></td>
+            <td>
+              <div style="width:33%;display:inline-block;">
+                <input id="lineColor" type="color" value="#00e0e0">
+              </div>
+              <div class="dropdown" style="display:inline-block;">
+                <button class="dropColorbtn">By activity</button>
+                <div id="colorByActivityMenu" class="dropdown-content" style="right:0;"></div>
+              </div>
+            </td>
           </tr>
           <tr>
             <td>Line Thickness</td>

@@ -118,6 +118,28 @@ d3.csv("data/activities.csv", function(data){
                 filterActivities(new Date(dates[0] * 1000), new Date(dates[1] * 1000), times[0], times[1]);
             });
             div.appendChild(container);
+
+            var colorContainer = document.createElement("tr");
+            colorContainer.classList.add("colorContainer");
+            var colorInput = document.createElement("input");
+            colorInput.id = activity + "Color";
+            colorInput.type = "color";
+            colorInput.value = "#00e0e0";
+            colorInput.addEventListener("input", function(){
+                var subset = data.filter(function(d){return d.type == activity});
+                for (i=0; i<subset.length; i++){
+                    paths[subset[i].id]._path.setAttribute("lineColor",this.value);
+                    paths[subset[i].id]._path.style.stroke = this.value;
+                    paths[subset[i].id].options.color = this.value; // needed for screenshot
+                }
+            });
+            var td1 = document.createElement("td");
+            var td2 = document.createElement("td");
+            td1.innerHTML = activity.replace(/([A-Z])/g, " $1");
+            td2.appendChild(colorInput);
+            colorContainer.appendChild(td1);
+            colorContainer.appendChild(td2);
+            document.getElementById("colorByActivityMenu").appendChild(colorContainer);
         })
     }
 
@@ -130,11 +152,11 @@ d3.csv("data/activities.csv", function(data){
         paths[data[i].id] = L.polyline(
             coordinates,
             {
-                color: 'rgb(0,128,128)',
+                color: '#00e0e0',
                 weight: 2,
                 opacity: .25,
                 lineJoin: 'round',
-                name: data[i].name
+                name: data[i].name,
             },
         )
         .on('click', function() { 
@@ -325,7 +347,7 @@ d3.csv("data/activities.csv", function(data){
         d3.select(this).raise();
     })
     .on("mouseout", function(){
-        d3.select(this).style('stroke', document.getElementById("lineColor").value);
+        d3.select(this).style('stroke', this.getAttribute("lineColor") ? this.getAttribute("lineColor") : document.getElementById("lineColor").value);
         d3.select(this).style('stroke-opacity', 0.25 * $('#alphaSlider').slider("option", "value"));
     });
 
