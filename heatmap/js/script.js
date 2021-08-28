@@ -14,15 +14,21 @@ function drawHeatmap(data){
     // setView of map on most recent starting position start_latitude,start_longitude
     map.setView([parseFloat(data[0]['start_latitude']), parseFloat(data[0]['start_longitude'])], 13);
 
+    mapTilesTerrain = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 28,
+            continuousWorld: false,
+            noWrap: true
+    });
+
     mapTilesLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: 28,
         continuousWorld: false,
         noWrap: true
     });
 
     // dark map
     mapTilesDark = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-        maxZoom: 18,
+        maxZoom: 28,
         continuousWorld: false,
         noWrap: true
     });
@@ -359,19 +365,29 @@ function drawHeatmap(data){
         // remove leaflet map tiles
         map.removeLayer(mapTilesDark);
         map.removeLayer(mapTilesLight);
-        document.getElementById("backgroundColorPicker").style.display = "table-row";
+        map.removeLayer(mapTilesTerrain);
+        //document.getElementById("backgroundColorPicker").style.display = "table-row";
     });
     document.getElementById("lightMapButton").addEventListener("click", function() { 
         // add leaflet map tiles
         map.removeLayer(mapTilesDark);
+        map.removeLayer(mapTilesTerrain);
         map.addLayer(mapTilesLight);
-        document.getElementById("backgroundColorPicker").style.display = "none";
+        //document.getElementById("backgroundColorPicker").style.display = "none";
     });
     document.getElementById("darkMapButton").addEventListener("click", function() { 
         // add leaflet map tiles
         map.removeLayer(mapTilesLight);
+        map.removeLayer(mapTilesTerrain);
         map.addLayer(mapTilesDark);
-        document.getElementById("backgroundColorPicker").style.display = "none";
+        //document.getElementById("backgroundColorPicker").style.display = "none";
+    });
+    document.getElementById("terrainMapButton").addEventListener("click", function() { 
+        // add leaflet map tiles
+        map.removeLayer(mapTilesLight);
+        map.removeLayer(mapTilesDark);
+        map.addLayer(mapTilesTerrain);
+        //document.getElementById("backgroundColor").disabled = true;
     });
 
     document.getElementById("loaderModal").style.display="none";

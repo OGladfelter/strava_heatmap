@@ -100,12 +100,12 @@
           <table style="width:100%;">
             <tr style="width:100%;">
               <td class="menuHeader">Filters</td>
-              <td id="menuButton1" class="menuButton">+</td>
+              <td id="menuButton1" class="menuButton">-</td>
             </tr>
           </table>
         </div>
 
-        <table id="filterMenuTable" class="filterMenuTable">
+        <table id="filterMenuTable" class="filterMenuTable" style="display:table;">
           <tr>
             <td id="dateLabel" class="menuItemLabel">Any Date</td>
             <td><div id="dateSlider" class="dateSlider"></div></td>
@@ -133,25 +133,31 @@
           <table style="width:100%;">
             <tr style="width:100%;">
               <td class="menuHeader">Settings</td>
-              <td id="menuButton3" class="menuButton">-</td>
+              <td id="menuButton3" class="menuButton">+</td>
             </tr>
           </table>
         </div>
 
-        <table id="customizeMenuTable" class="filterMenuTable" style="display:table;">
+        <table id="customizeMenuTable" class="filterMenuTable">
           <tr>
             <td style="width:30%;">
-              Map
+              Map Type
             </td>
             <td>
-              <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
-              <label for="mapOption1" id="runBoxLabel"> None</label>
-            
-              <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
-              <label for="mapOption2" id="runBoxLabel"> Light</label>
-            
-              <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
-              <label for="mapOption3" id="runBoxLabel"> Dark</label>
+              <div>
+                <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
+                <label for="mapOption1">None</label>
+              
+                <input type="radio" id="terrainMapButton" name="mapOptions" value="mapOption4">
+                <label for="mapOption4">Terrain</label>
+              </div>
+              <div>
+                <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
+                <label for="mapOption2">Light</label>
+
+                <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
+                <label for="mapOption3">Dark</label>
+              </div>
             </td>
           </tr>
           <tr id="backgroundColorPicker">
