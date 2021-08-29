@@ -38,9 +38,12 @@ document.getElementById("backgroundColor").addEventListener("input", function() 
 
 // customization menu item - line color
 document.getElementById("lineColor").addEventListener("input", function() { 
-    d3.selectAll("path").style("stroke",this.value);
+    var allColor = this.value;
+    d3.selectAll("path").style("stroke",allColor);
+    var paths = d3.selectAll("path");
+    paths._groups[0].forEach(function(d){d.setAttribute("lineColor",allColor);});
     for (i=0; i<$("#colorByActivityMenu input").length; i++){
-        $("#colorByActivityMenu input")[i].value = this.value;
+        $("#colorByActivityMenu input")[i].value = allColor;
     }
 });
 

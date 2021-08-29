@@ -13,8 +13,8 @@ d3.csv("data/activities_sample.csv", function(data){
     // setView of map on most recent starting position start_latitude,start_longitude
     map.setView([data[0]['start_latitude'], data[0]['start_longitude']], 13);
 
-    mapTilesTerrain = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 28,
+    mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 50,
             continuousWorld: false,
             noWrap: true
     });
