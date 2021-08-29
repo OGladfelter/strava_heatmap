@@ -153,7 +153,7 @@ d3.csv("data/activities_sample.csv", function(data){
             {
                 color: '#00e0e0',
                 weight: 2,
-                opacity: .25,
+                opacity: 1,
                 lineJoin: 'round',
                 name: data[i].name,
             },
@@ -166,6 +166,9 @@ d3.csv("data/activities_sample.csv", function(data){
 
         //polyline.bindTooltip('stuff')
     }
+
+    // set opacity of all lines
+    d3.selectAll("path").style("opacity", 0.3);
 
     ////////////////////////// interactives - data filtering ////////////////////////
     function filterActivities(date1, date2, time1, time2){
@@ -185,6 +188,7 @@ d3.csv("data/activities_sample.csv", function(data){
         for (i=0; i<subset.length; i++){
             paths[subset[i].id]._path.style.display = "initial";
         }
+
     }
     
     // get min and max dates in epoch time (seconds from something)
@@ -347,12 +351,12 @@ d3.csv("data/activities_sample.csv", function(data){
     // hover over any path to highlight it
     d3.selectAll("path").on("mouseover", function(){
         d3.select(this).style('stroke', 'yellow');
-        d3.select(this).style('stroke-opacity', 1);
+        d3.select(this).style('opacity', 1);
         d3.select(this).raise();
     })
     .on("mouseout", function(){
         d3.select(this).style('stroke', this.getAttribute("lineColor") ? this.getAttribute("lineColor") : document.getElementById("lineColor").value);
-        d3.select(this).style('stroke-opacity', 0.25 * $('#alphaSlider').slider("option", "value"));
+        d3.select(this).style('opacity', $('#alphaSlider').slider("option", "value"));
     });
 
     // customization menu item - click radio buttons to turn map tiles on/off
