@@ -72,6 +72,17 @@ $(function() {
     });
 });
 
+// getting color pickers to work right on macs
+function showActivityColorMenu(){
+    document.getElementById("colorByActivityMenu").style.display = 'block';
+}
+document.getElementById("colorByActivityMenu").addEventListener("click", function(event){
+    event.stopPropagation(); // prevent menu from closing if they click on the menu
+});
+document.body.addEventListener("click", function(){
+    document.getElementById("colorByActivityMenu").style.display = 'none';
+});
+
 // var latlngDict = {};
 // function reverse_geocode(latlng){
     
