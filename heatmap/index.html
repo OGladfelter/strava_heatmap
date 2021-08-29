@@ -50,7 +50,6 @@
     <link rel="stylesheet" href="css/style.css?v=4" />
 
     <link rel="stylesheet" href="css/BigImage.css">
-    <script src="js/BigImage.js?v=2"></script>
   </head>
 
   <body>
@@ -100,12 +99,12 @@
           <table style="width:100%;">
             <tr style="width:100%;">
               <td class="menuHeader">Filters</td>
-              <td id="menuButton1" class="menuButton">+</td>
+              <td id="menuButton1" class="menuButton">-</td>
             </tr>
           </table>
         </div>
 
-        <table id="filterMenuTable" class="filterMenuTable">
+        <table id="filterMenuTable" class="filterMenuTable" style="display:table;">
           <tr>
             <td id="dateLabel" class="menuItemLabel">Any Date</td>
             <td><div id="dateSlider" class="dateSlider"></div></td>
@@ -118,7 +117,7 @@
             <td class="menuItemLabel">Activities</td>
             <td>
                 <div class="dropdown">
-                  <button onclick="showActivityMenu()" class="dropbtn" id="dropdownButton">Activities</button>
+                  <button class="dropbtn" id="dropdownButton">Activities</button>
                   <div id="activityMenu" class="dropdown-content"></div>
                 </div>
             </td>
@@ -133,25 +132,31 @@
           <table style="width:100%;">
             <tr style="width:100%;">
               <td class="menuHeader">Settings</td>
-              <td id="menuButton3" class="menuButton">-</td>
+              <td id="menuButton3" class="menuButton">+</td>
             </tr>
           </table>
         </div>
 
-        <table id="customizeMenuTable" class="filterMenuTable" style="display:table;">
+        <table id="customizeMenuTable" class="filterMenuTable">
           <tr>
             <td style="width:30%;">
-              Map
+              Map Type
             </td>
             <td>
-              <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
-              <label for="mapOption1" id="runBoxLabel"> None</label>
-            
-              <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
-              <label for="mapOption2" id="runBoxLabel"> Light</label>
-            
-              <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
-              <label for="mapOption3" id="runBoxLabel"> Dark</label>
+              <div>
+                <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
+                <label for="mapOption1">None</label>
+              
+                <input type="radio" id="terrainMapButton" name="mapOptions" value="mapOption4">
+                <label for="mapOption4">Terrain</label>
+              </div>
+              <div>
+                <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
+                <label for="mapOption2">Light</label>
+
+                <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
+                <label for="mapOption3">Dark</label>
+              </div>
             </td>
           </tr>
           <tr id="backgroundColorPicker">
@@ -165,7 +170,7 @@
                 <input id="lineColor" type="color" value="#00e0e0">
               </div>
               <div class="dropdown" style="display:inline-block;">
-                <button class="dropColorbtn">By activity</button>
+                <button class="dropColorbtn" onmouseover="showActivityColorMenu()">By activity</button>
                 <div id="colorByActivityMenu" class="dropdown-content" style="right:0;"></div>
               </div>
             </td>
@@ -200,9 +205,10 @@
     </div>
 
     
-    <script src="js/script.js?v=5"></script>
-    <script src="js/ui.js?v=4"></script>
+    <script src="js/script.js?v=6"></script>
+    <script src="js/ui.js?v=5"></script>
     <script src="js/strava_api.js"></script>
+    <script src="js/BigImage.js?v=2"></script>
 
   </body>
 </html>
