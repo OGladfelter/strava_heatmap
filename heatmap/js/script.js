@@ -14,8 +14,8 @@ function drawHeatmap(data){
     // setView of map on most recent starting position start_latitude,start_longitude
     map.setView([parseFloat(data[0]['start_latitude']), parseFloat(data[0]['start_longitude'])], 13);
 
-    mapTilesTerrain = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 28,
+    mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 50,
             continuousWorld: false,
             noWrap: true
     });
