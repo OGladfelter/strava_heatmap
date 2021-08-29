@@ -66,10 +66,10 @@ $(function() {
 $(function() {
     $("#alphaSlider").slider({
         range: false,
-        min: 0.2,
+        min: 0.1,
         max: 1,
         step: 0.1,
-        value: 1,
+        value: 0.3,
         slide: function(e, ui) {
             d3.selectAll("path").style("opacity",ui.value)
         }
