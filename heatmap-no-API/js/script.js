@@ -194,31 +194,36 @@ d3.csv("data/activities_sample.csv", function(data){
     // add date slider + function
     $(function(){
         $("#dateSlider").slider({
-          range: true,
-          min: minDate,
-          max: maxDate,
-          step: 86400,
-          values: [minDate, maxDate],
-          slide: function(event, ui){
+            range: true,
+            min: minDate,
+            max: maxDate + 86400,
+            step: 86400,
+            values: [minDate, maxDate + 86400],
+            slide: function(event, ui){
+                minEpoch = new Date(ui.values[0] * 1000).setHours(0,0,0,0);
+                maxEpoch = new Date(ui.values[1] * 1000).setHours(0,0,0,0);
 
-            // reformat EPOS seconds back into date object
-            var newMinDate = new Date(ui.values[0] * 1000);
-            var newMaxDate = new Date(ui.values[1] * 1000);
-            
-            // update Date text label
-            if (ui.values[0]==minDate & ui.values[1]==maxDate){
-                $('#dateLabel').text("Any Date");
-            }
-            else{
-                $('#dateLabel').text(newMinDate.toDateString().replace(/^\S+\s/,'') + " - " + newMaxDate.toDateString().replace(/^\S+\s/,''));
-            }
-            
-            // don't forget to include time
-            var times = $('#timeSlider').slider("option", "values");
+                // reformat EPOS seconds back into date object - must be of time 00:00:00 to match strava date that I pulled
+                var newMinDate = new Date(minEpoch);
+                var newMaxDate = new Date(maxEpoch);
 
-            // call function to update map
-            filterActivities(newMinDate, newMaxDate, times[0], times[1]);
-          }
+                // update Date text label
+                if (minEpoch == maxEpoch){
+                    $('#dateLabel').text(newMinDate.toDateString().replace(/^\S+\s/,''));
+                }
+                else if (minEpoch==minDate*1000 & maxEpoch>=maxDate*1000){
+                    $('#dateLabel').text("Any Date");
+                }
+                else{
+                    $('#dateLabel').text(newMinDate.toDateString().replace(/^\S+\s/,'') + " - " + newMaxDate.toDateString().replace(/^\S+\s/,''));
+                }
+                
+                // don't forget to include time
+                var times = $('#timeSlider').slider("option", "values");
+
+                // call function to update map
+                filterActivities(newMinDate, newMaxDate, times[0], times[1]);
+            }
         });
     });
 
