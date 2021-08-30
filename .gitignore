@@ -1,5 +1,3 @@
-*.php
 activities.csv
-*.ipynb
 heatmap/data
 .DS_Store
