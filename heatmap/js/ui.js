@@ -133,7 +133,7 @@ var latlngDict = {};
 
 function cleanAndSetUp(){
     // hide some shit, show some shit
-    document.getElementById("myModal").style.display = "none";
-    document.getElementById("loader").style.display = "block";
+    document.getElementById("logInModal").style.display = "none";
+    document.getElementById("loaderModal").style.display = "block";
     document.getElementById("video").pause();
 }
