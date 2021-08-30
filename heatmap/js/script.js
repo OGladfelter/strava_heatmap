@@ -1,5 +1,11 @@
 function drawHeatmap(data){
 
+    // hide some shit, show some shit
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("map").style.display = 'block';
+    document.getElementById("menuContainer").style.display = 'block';
+
+    // read map styles
     mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 50,
             continuousWorld: false,
@@ -15,11 +21,6 @@ function drawHeatmap(data){
         continuousWorld: false,
         noWrap: true
     });
-    
-    // hide some shit, show some shit
-    document.getElementById("preview").style.display = "none";
-    document.getElementById("map").style.display = 'block';
-    document.getElementById("menuContainer").style.display = 'block';
 
     var map = L.map('map', {minZoom:3, maxZoom:25, maxBoundsViscosity:1});
     map.setMaxBounds([[-90,-180], [90,180]]);
