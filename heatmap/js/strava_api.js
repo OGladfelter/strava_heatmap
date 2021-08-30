@@ -29,16 +29,17 @@ else if (token_exists & (new Date().getTime() / 1000) >= expires_at) { // their 
     var refreshToken = JSON.parse(localStorage.getItem("strava_data")).refresh_token;
     reAuthorize(refreshToken);
 }
-else if (queryString == ""){ // we don't have a code. They still need to log in and authorize
+else if (queryString == "" || queryString == "?state=&error=access_denied"){ // we don't have a code. They still need to log in and authorize
     // encourage them to log in and authorize
     console.log("No token in local storage, no authorization code");
+    document.getElementById("logInModal").style.display = "block";
 }
 else{ // we have a code because they logged in and authorized. the code can be found in the URL params
-    console.log("Authorization code retrieved")
+    console.log("Authorization code retrieved");
 
     cleanAndSetUp(); // some UI changes
     var urlParams = new URLSearchParams(queryString);
-    var code = urlParams.get('code')
+    var code = urlParams.get('code');
     get_token();
 }
 

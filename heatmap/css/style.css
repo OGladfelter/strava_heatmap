@@ -210,7 +210,7 @@ input[type=color]{
   
 /* The Modal (background) */
 .modal {
-    display: block;
+    display: none;
     position: fixed; /* Stay in place */
     z-index: 91; /* Sit on top */
     padding-top: 0px; /* Location of the box */
