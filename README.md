@@ -18,7 +18,7 @@ Non-Strava users can see a video demonstration <a href="https://www.reddit.com/r
   - ui.js: event listeners for user-activated functions; adds JQuery sliders; contains reverse_geocode function
 
 # strava_heatmap_no_API
-A copy of /heatmap (as of March 21), but runs on a local data source, rather than the Strava API itself, for development and testing purposes.
+A copy of /heatmap (as of August 2021), but runs on a local data source, rather than the Strava API itself, for development and testing purposes.
 
 - PHP
   - geocode.php: used to reverse_geocode the latitude and longitude coordinates received from Strava for the purpose of providing user with a list of neighborhoods they commonly start activities in
