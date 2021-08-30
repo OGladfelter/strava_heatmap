@@ -5,33 +5,38 @@ function drawHeatmap(data){
     document.getElementById("map").style.display = 'block';
     document.getElementById("menuContainer").style.display = 'block';
 
+    // read map styles
+    mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 50,
+            continuousWorld: false,
+            noWrap: true
+    });
+    mapTilesLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+        maxZoom: 28,
+        continuousWorld: false,
+        noWrap: true
+    });
+    mapTilesDark = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
+        maxZoom: 28,
+        continuousWorld: false,
+        noWrap: true
+    });
+
     var map = L.map('map', {minZoom:3, maxZoom:25, maxBoundsViscosity:1});
     map.setMaxBounds([[-90,-180], [90,180]]);
 
     // icon allowing users to download screenshots
     L.control.bigImage().addTo(map);
 
-    // setView of map on most recent starting position start_latitude,start_longitude
-    map.setView([parseFloat(data[0]['start_latitude']), parseFloat(data[0]['start_longitude'])], 13);
-
-    mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 50,
-            continuousWorld: false,
-            noWrap: true
-    });
-
-    mapTilesLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
-        maxZoom: 28,
-        continuousWorld: false,
-        noWrap: true
-    });
-
-    // dark map
-    mapTilesDark = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png', {
-        maxZoom: 28,
-        continuousWorld: false,
-        noWrap: true
-    });
+    try {
+        // setView of map on most recent starting position start_latitude,start_longitude
+        map.setView([parseFloat(data[0]['start_latitude']), parseFloat(data[0]['start_longitude'])], 13);
+    }
+    catch {
+        // setView failed for unknown reason. just set view to NYC and turn on terrain map
+        map.setView([40.7128, -74.0060], 13);
+        map.addLayer(mapTilesTerrain);
+    }
 
     // filter out activities without a summary polyline
     data = data.filter(d => d.map['summary_polyline'] != "");
