@@ -59,7 +59,7 @@
             this._container.classList.add('leaflet-bar');
 
             this._container.addEventListener('click', () => {
-                this._print();
+                this._print(false);
             });
 
             // this._containerParams = document.createElement('div');
@@ -372,7 +372,7 @@
             }
         },
 
-        _print: function () {
+        _print: function (highResolution) {
             let self = this;
 
             self.tilesImgs = {};
@@ -420,6 +420,22 @@
                     resolve();
                 }));
             }).then(() => {
+                function resizedCanvas(canvas,newWidth,newHeight) {
+                    var tmpCanvas = document.createElement('canvas');
+                    tmpCanvas.width = newWidth;
+                    tmpCanvas.height = newHeight;
+            
+                    var ctx = tmpCanvas.getContext('2d');
+                    ctx.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,newWidth,newHeight);
+            
+                    return tmpCanvas;
+                }
+
+                // optional line to resize the image to something larger. skip this if it's not for a poster.
+                if (highResolution) {
+                    self.canvas = resizedCanvas(self.canvas, self.canvas.width * 7,self.canvas.height * 7);
+                }
+                
                 self.canvas.toBlob(function (blob) {
                     let link = document.createElement('a');
                     link.download = "activity_heatmap.png";
