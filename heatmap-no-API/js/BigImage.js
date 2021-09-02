@@ -299,6 +299,12 @@
         // },
 
         _drawPath: function (value) {
+
+            // if this path's activity isn't in the currently selected activities, don't add it to screenshot
+            if (!activityTypes.includes(value.options.activity)){
+                return;
+            }
+
             let self = this;
 
             self.ctx.beginPath();
@@ -311,9 +317,9 @@
             if (value.closed) self.ctx.closePath();
 
             // plug in correct asthetics
-            //options.color = document.getElementById("lineColor").value;
+            options.color = value.options.color;
             options.weight = $('#thicknessSlider').slider("option", "value");
-            options.opacity = 0.25 * $('#alphaSlider').slider("option", "value");
+            options.opacity = $('#alphaSlider').slider("option", "value");
 
             this._feelPath(options);
         },

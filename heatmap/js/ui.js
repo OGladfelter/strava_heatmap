@@ -71,7 +71,7 @@ $(function() {
         step: 0.1,
         value: 0.3,
         slide: function(e, ui) {
-            d3.selectAll("path").style("opacity",ui.value)
+            d3.selectAll("path").style("opacity",ui.value);
         }
     });
 });

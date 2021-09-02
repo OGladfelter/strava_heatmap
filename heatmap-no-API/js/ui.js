@@ -56,7 +56,7 @@ $(function() {
         step: 0.5,
         value: 2,
         slide: function(e, ui) {
-            d3.selectAll("path").style("stroke-width",ui.value+"px")
+            d3.selectAll("path").style("stroke-width",ui.value+"px");
         }
     });
 });
