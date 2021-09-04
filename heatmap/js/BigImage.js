@@ -59,8 +59,13 @@
             this._container.classList.add('leaflet-bar');
 
             this._container.addEventListener('click', () => {
-                this._print(false);
+                // this print button opens a modal
+                document.getElementById("printModal").style.display = 'block';
             });
+
+            var canvas = this; // so we can access the canvas within the button functions
++           document.getElementById("normalResolutionButton").addEventListener("click", function(){canvas._print(false);});
++           document.getElementById("highResolutionButton").addEventListener("click", function(){canvas._print(true);});
 
             // this._containerParams = document.createElement('div');
             // this._containerParams.id = 'print-params';
@@ -141,7 +146,7 @@
             classesToAdd.forEach(function (c) {
                 controlPanel.classList.add(c);
             });
-            L.DomEvent.on(controlPanel, 'click', context);
+            //L.DomEvent.on(controlPanel, 'click', context);
             this._container.appendChild(controlPanel);
             this._controlPanel = controlPanel;
 

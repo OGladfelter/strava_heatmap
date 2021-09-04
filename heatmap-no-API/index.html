@@ -15,9 +15,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css" />
-
     <link rel="stylesheet" href="css/BigImage.css">
-    <script src="js/BigImage.js"></script>
   </head>
 
   <body>
@@ -139,9 +137,30 @@
       <table id="jumperTable" class="filterMenuTable"></table>
     </div>
     <!--  -->
-    
+
+    <!-- modal -->
+    <div id="printModal" class="printModal">
+      <div class="modal-content animate">
+        <h1 class="loginHeader">Screenshot your heatmap</h1>
+          <div class="row">
+            <div class="column" style="background-color:#aaa;">
+                <h2>Normal-resolution</h2>
+                <p>A smaller image ideal for storing and sharing digitally</p>
+                <button id="normalResolutionButton">Normal-resolution</button>
+            </div>
+            <div class="column" style="background-color:#bbb;">
+                <h2>High-resolution</h2>
+                <p>A larger image suitable for printing out into a poster</p>
+                <button id="highResolutionButton" class="logIn">High-resolution</button>
+
+            </div>
+          </div>
+      </div>
     </div>
-    
+
+    </div>
+
+    <script src="js/BigImage.js"></script>
     <script src="js/script.js"></script>
     <script src="js/ui.js"></script>
 
