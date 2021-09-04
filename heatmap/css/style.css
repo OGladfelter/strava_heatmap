@@ -207,7 +207,7 @@ input[type=color]{
     border: none !important;
 }
 .leaflet-top {
-    z-index: 2;
+    z-index: 998;
 }
   
 /* The Modal (background) */
@@ -330,22 +330,25 @@ input[type=color]{
 .printModal {
     display: none; 
     position: fixed; /* Stay in place */
-    z-index: 3; /* Sit on top */
+    z-index: 999; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.75);
 }
-.modal-content {
-    background-color: white;
-    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+.modal-content-3 {
+    background-color:#003366;
+    margin: 5% auto 15% auto;
     border: 1px solid black;
     width: 40%;
     text-align: center;
+    user-select: none;
 }
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
+.modal-content h1 {
+    color: whitesmoke;
+    margin: 10px auto 10px auto;
+    font-weight: normal;
 }
 .printModal * {
     box-sizing: border-box;
@@ -356,6 +359,37 @@ input[type=color]{
 .column {
     flex: 50%;
     padding: 10px;
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+.column:hover {
+    background-color:white;
+}
+.column div{
+    font-size: 20px;
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease-in-out;
+    -o-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+}
+.column div.rotated {
+    -webkit-transform : rotate(360deg); 
+    -moz-transform : rotate(360deg); 
+    -ms-transform : rotate(360deg); 
+    -o-transform : rotate(360deg); 
+    transform : rotate(360deg); 
+}
+.column p {
+    font-size: 1.25em;
+}
+.closeButton{
+    padding:5px 10px 0px 0px; 
+    margin: 0px;
+    cursor:pointer;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: whitesmoke;
 }
 
 @media only screen and (max-width: 600px) {

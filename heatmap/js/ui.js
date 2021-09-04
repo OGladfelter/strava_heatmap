@@ -87,6 +87,17 @@ document.body.addEventListener("click", function(){
     document.getElementById("colorByActivityMenu").style.display = 'none';
 });
 
+document.getElementById("printModal").addEventListener("click", function(){
+    document.getElementById("printModal").style.display = 'none';
+});
+// for some fun flair...
+document.getElementById("normalResolutionButton").addEventListener("mouseenter", function(){
+    document.getElementById("downloadButton1").classList.toggle('rotated');
+});
+document.getElementById("highResolutionButton").addEventListener("mouseenter", function(){
+    document.getElementById("downloadButton2").classList.toggle('rotated');
+});
+
 var latlngDict = {};
 // function reverse_geocode(latlng){
     
