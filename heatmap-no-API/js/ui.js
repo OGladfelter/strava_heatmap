@@ -39,10 +39,15 @@ document.getElementById("backgroundColor").addEventListener("input", function() 
 // customization menu item - line color
 document.getElementById("lineColor").addEventListener("input", function() { 
     var allColor = this.value;
-    d3.selectAll("path").style("stroke",allColor);
-    var paths = d3.selectAll("path");
-    paths._groups[0].forEach(function(d){d.setAttribute("lineColor",allColor);});
-    for (i=0; i<$("#colorByActivityMenu input").length; i++){
+    d3.selectAll("path").style("stroke",allColor); // update frontend color
+    var lines = d3.selectAll("path");
+    lines._groups[0].forEach(function(d){ // update lineColor attribute for proper highlighting and returning to color
+        d.setAttribute("lineColor",allColor);
+    });
+    for (const key of Object.keys(paths)) { // update color attr in options, for screenshot
+        paths[key].options.color = allColor; // now this line will show up as this color in the screenshot
+    }
+    for (i=0; i<$("#colorByActivityMenu input").length; i++){ // set all by activity color pickers to match this color
         $("#colorByActivityMenu input")[i].value = allColor;
     }
 });

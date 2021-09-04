@@ -345,7 +345,7 @@ input[type=color]{
     text-align: center;
     user-select: none;
 }
-.modal-content h1 {
+.modal-content-3 h1 {
     color: whitesmoke;
     margin: 10px auto 10px auto;
     font-weight: normal;
