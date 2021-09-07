@@ -69,7 +69,7 @@ function drawHeatmap(data){
     //console.log(data);
 
     // create array of all unique activity types in user's data
-    var activityTypes = d3.map(data, function(d){return d.type;}).keys();
+    activityTypes = d3.map(data, function(d){return d.type;}).keys();
     document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
 
     // add rows to jumper table
@@ -172,7 +172,8 @@ function drawHeatmap(data){
                 weight: 2,
                 opacity: 1,
                 lineJoin: 'round',
-                name: data[i].name
+                name: data[i].name,
+                activity: data[i].type
             },
         )
         .addTo(map)

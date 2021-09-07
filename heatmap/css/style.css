@@ -206,7 +206,9 @@ input[type=color]{
 .leaflet-tooltip-right:before {
     border: none !important;
 }
-
+.leaflet-top {
+    z-index: 998;
+}
   
 /* The Modal (background) */
 .modal {
@@ -324,6 +326,72 @@ input[type=color]{
     margin-top: 2.5%;
 }
 
+/* modal */
+.printModal {
+    display: none; 
+    position: fixed; /* Stay in place */
+    z-index: 999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.modal-content-3 {
+    background-color:#003366;
+    margin: 5% auto 15% auto;
+    border: 1px solid black;
+    width: 40%;
+    text-align: center;
+    user-select: none;
+}
+.modal-content-3 h1 {
+    color: whitesmoke;
+    margin: 10px auto 10px auto;
+    font-weight: normal;
+}
+.printModal * {
+    box-sizing: border-box;
+}
+.row {
+    display: flex;
+}
+.column {
+    flex: 50%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+.column:hover {
+    background-color:white;
+}
+.column div{
+    font-size: 20px;
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease-in-out;
+    -o-transition: all 0.75s ease-in-out;
+    transition: all 0.75s ease-in-out;
+}
+.column div.rotated {
+    -webkit-transform : rotate(360deg); 
+    -moz-transform : rotate(360deg); 
+    -ms-transform : rotate(360deg); 
+    -o-transform : rotate(360deg); 
+    transform : rotate(360deg); 
+}
+.column p {
+    font-size: 1.25em;
+}
+.closeButton{
+    padding:5px 10px 0px 0px; 
+    margin: 0px;
+    cursor:pointer;
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    color: whitesmoke;
+}
+
 @media only screen and (max-width: 600px) {
     .menuContainer{
         z-index:999;
@@ -339,6 +407,10 @@ input[type=color]{
     .modal-content{
         width: 90%;
         top: 10%;
+    }
+
+    .modal-content-3 {
+        width: 90%;
     }
 
      /* Add Animation */
@@ -357,4 +429,128 @@ input[type=color]{
     }
 }
 
+/* BigImage styles */
+.bigimage-unicode-icon {
+    font-size: 19px;
+    font-weight: bold;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
+.bigimage-unicode-icon-disable {
+    display: none !important;
+}
+
+.print-disabled {
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+#print-params  {
+    width: 100%;
+    text-align: center;
+}
+
+#print-params > h6 {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 500;
+    color: inherit;
+}
+
+#print-params > input[type="number"] {
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 4px;
+}
+
+.close {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 20px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    right: 5px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.operation-btn {
+    text-decoration: none;
+    display: inline !important;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-size: 20px;
+    margin: 3px;
+}
+
+.see-btn:before {
+    content: '\1F441';
+}
+
+.download-btn:before {
+    content: '\2B07';
+}
+
+#print-loading {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 30px;
+    width: 30px;
+    margin: -15px 0 0 -15px;
+    border: 4px rgb(167, 164, 171) solid;
+    border-top: 4px #52006d solid;
+    border-radius: 50%;
+    -webkit-animation: spin 1s infinite linear;
+    animation: spin 1s infinite linear;
+}
+
+@-webkit-keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+.download-button {
+    font-family: sans-serif;
+    display: inline-block;
+    font-size: 1em;
+    text-align: center;
+    padding: 0.3em 0.8em;
+    background: linear-gradient(45deg, #2b71ad, #0c7162);
+    color: #fff;
+    box-shadow: 0 0.4em 0.4em rgba(0, 0, 0, 0.25);
+    border-radius: 0.4em;
+    transition: box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.download-button:hover {
+    box-shadow: 0 0.1em 0.25em rgba(0,0,0,0.25);
+}

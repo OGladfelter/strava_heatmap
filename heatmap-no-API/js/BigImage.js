@@ -59,8 +59,13 @@
             this._container.classList.add('leaflet-bar');
 
             this._container.addEventListener('click', () => {
-                this._print();
+                // this print button opens a modal
+                document.getElementById("printModal").style.display = 'block';
             });
+
+            var canvas = this; // so we can access the canvas within the button functions
+            document.getElementById("normalResolutionButton").addEventListener("click", function(){canvas._print(false);});
+            document.getElementById("highResolutionButton").addEventListener("click", function(){canvas._print(true);});
 
             // this._containerParams = document.createElement('div');
             // this._containerParams.id = 'print-params';
@@ -141,7 +146,7 @@
             classesToAdd.forEach(function (c) {
                 controlPanel.classList.add(c);
             });
-            L.DomEvent.on(controlPanel, 'click', context);
+            //L.DomEvent.on(controlPanel, 'click', context);
             this._container.appendChild(controlPanel);
             this._controlPanel = controlPanel;
 
@@ -299,6 +304,12 @@
         // },
 
         _drawPath: function (value) {
+
+            // if this path's activity isn't in the currently selected activities, don't add it to screenshot
+            if (!activityTypes.includes(value.options.activity)){
+                return;
+            }
+
             let self = this;
 
             self.ctx.beginPath();
@@ -311,9 +322,9 @@
             if (value.closed) self.ctx.closePath();
 
             // plug in correct asthetics
-            //options.color = document.getElementById("lineColor").value;
+            options.color = value.options.color;
             options.weight = $('#thicknessSlider').slider("option", "value");
-            options.opacity = 0.25 * $('#alphaSlider').slider("option", "value");
+            options.opacity = $('#alphaSlider').slider("option", "value");
 
             this._feelPath(options);
         },
@@ -366,7 +377,8 @@
             }
         },
 
-        _print: function () {
+        _print: function (highResolution) {
+            
             let self = this;
 
             self.tilesImgs = {};
@@ -414,6 +426,22 @@
                     resolve();
                 }));
             }).then(() => {
+                function resizedCanvas(canvas,newWidth,newHeight) {
+                    var tmpCanvas = document.createElement('canvas');
+                    tmpCanvas.width = newWidth;
+                    tmpCanvas.height = newHeight;
+            
+                    var ctx = tmpCanvas.getContext('2d');
+                    ctx.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,newWidth,newHeight);
+            
+                    return tmpCanvas;
+                }
+
+                // optional line to resize the image to something larger. skip this if it's not for a poster.
+                if (highResolution) {
+                    self.canvas = resizedCanvas(self.canvas, self.canvas.width * 7,self.canvas.height * 7);
+                }
+
                 self.canvas.toBlob(function (blob) {
                     let link = document.createElement('a');
                     link.download = "activity_heatmap.png";

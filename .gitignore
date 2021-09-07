@@ -1,3 +1,5 @@
 activities.csv
 heatmap/data
 .DS_Store
+heatmap/css/style.min.css
+heatmap/js/*.min.js

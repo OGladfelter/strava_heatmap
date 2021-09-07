@@ -62,7 +62,7 @@ d3.csv("data/activities_sample.csv", function(data){
     //console.log(data);
 
     // create array of all unique activity types in user's data
-    var activityTypes = d3.map(data, function(d){return d.type;}).keys();
+    activityTypes = d3.map(data, function(d){return d.type;}).keys();
     document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
 
     // add rows to jumper table
@@ -162,6 +162,7 @@ d3.csv("data/activities_sample.csv", function(data){
                 opacity: 1,
                 lineJoin: 'round',
                 name: data[i].name,
+                activity: data[i].type,
             },
         )
         .on('click', function() { 

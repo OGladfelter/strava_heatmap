@@ -14,10 +14,8 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css" />
-
-    <link rel="stylesheet" href="css/BigImage.css">
-    <script src="js/BigImage.js"></script>
   </head>
 
   <body>
@@ -139,9 +137,30 @@
       <table id="jumperTable" class="filterMenuTable"></table>
     </div>
     <!--  -->
-    
+
+    <!-- modal -->
+    <div id="printModal" class="printModal">
+      <div class="modal-content-3">
+        <span onclick="document.getElementById('printModal').style.display='none';" class="closeButton">&times;</span>
+        <h1>Choose your screenshot resolution</h1>
+          <div class="row">
+            <div id="normalResolutionButton" class="column">
+                <h2>Normal-resolution</h2>
+                <p>Ideal for storing and sharing digitally</p>
+                <div id="downloadButton1"><i class="fa fa-download"></i></div>
+            </div>
+            <div id="highResolutionButton" class="column" style="border-left:1px #C0C0C0 solid;">
+                <h2>High-resolution</h2>
+                <p>Suitable for printing out into a poster</p>
+                <div id="downloadButton2"><i class="fa fa-download"></i></div>
+            </div>
+          </div>
+      </div>
     </div>
-    
+
+    </div>
+
+    <script src="js/BigImage.js"></script>
     <script src="js/script.js"></script>
     <script src="js/ui.js"></script>
 

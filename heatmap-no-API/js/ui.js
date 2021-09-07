@@ -39,10 +39,15 @@ document.getElementById("backgroundColor").addEventListener("input", function() 
 // customization menu item - line color
 document.getElementById("lineColor").addEventListener("input", function() { 
     var allColor = this.value;
-    d3.selectAll("path").style("stroke",allColor);
-    var paths = d3.selectAll("path");
-    paths._groups[0].forEach(function(d){d.setAttribute("lineColor",allColor);});
-    for (i=0; i<$("#colorByActivityMenu input").length; i++){
+    d3.selectAll("path").style("stroke",allColor); // update frontend color
+    var lines = d3.selectAll("path");
+    lines._groups[0].forEach(function(d){ // update lineColor attribute for proper highlighting and returning to color
+        d.setAttribute("lineColor",allColor);
+    });
+    for (const key of Object.keys(paths)) { // update color attr in options, for screenshot
+        paths[key].options.color = allColor; // now this line will show up as this color in the screenshot
+    }
+    for (i=0; i<$("#colorByActivityMenu input").length; i++){ // set all by activity color pickers to match this color
         $("#colorByActivityMenu input")[i].value = allColor;
     }
 });
@@ -56,7 +61,7 @@ $(function() {
         step: 0.5,
         value: 2,
         slide: function(e, ui) {
-            d3.selectAll("path").style("stroke-width",ui.value+"px")
+            d3.selectAll("path").style("stroke-width",ui.value+"px");
         }
     });
 });
@@ -84,6 +89,17 @@ document.getElementById("colorByActivityMenu").addEventListener("click", functio
 });
 document.body.addEventListener("click", function(){
     document.getElementById("colorByActivityMenu").style.display = 'none';
+});
+
+document.getElementById("printModal").addEventListener("click", function(){
+    document.getElementById("printModal").style.display = 'none';
+});
+// for some fun flair...
+document.getElementById("normalResolutionButton").addEventListener("mouseenter", function(){
+    document.getElementById("downloadButton1").classList.toggle('rotated');
+});
+document.getElementById("highResolutionButton").addEventListener("mouseenter", function(){
+    document.getElementById("downloadButton2").classList.toggle('rotated');
 });
 
 // var latlngDict = {};
