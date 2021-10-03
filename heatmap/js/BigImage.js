@@ -46,12 +46,6 @@
             return this._createControl(label, title, classes, this);
         },
 
-        // _click: function (e) {
-        //     //this._container.classList.add('leaflet-control-layers-expanded');
-        //     //this._containerParams.style.display = '';
-        //     //this._controlPanel.classList.add('bigimage-unicode-icon-disable');
-        // },
-
         _createControl: function (label, title, classesToAdd, context) {
 
             this._container = document.createElement('div');
@@ -67,76 +61,10 @@
 +           document.getElementById("normalResolutionButton").addEventListener("click", function(){canvas._print(false);});
 +           document.getElementById("highResolutionButton").addEventListener("click", function(){canvas._print(true);});
 
-            // this._containerParams = document.createElement('div');
-            // this._containerParams.id = 'print-params';
-            // this._containerParams.style.display = 'none';
-
-            //this._createCloseButton();
-
-            //let containerTitle = document.createElement('h6');
-            //containerTitle.style.width = '100%';
-            //containerTitle.innerHTML = this.options.inputTitle;
-            //this._containerParams.appendChild(containerTitle);
-
-            // this._createScaleInput();
-            // this._createDownloadButton();
-            //this._container.appendChild(this._containerParams);
-
             this._createControlPanel(classesToAdd, context, label, title);
-
-            // L.DomEvent.disableScrollPropagation(this._container);
-            // L.DomEvent.disableClickPropagation(this._container);
 
             return this._container;
         },
-
-        // _createDownloadButton: function () {
-        //     this._downloadBtn = document.createElement('div');
-        //     this._downloadBtn.classList.add('download-button');
-
-        //     this._downloadBtn = document.createElement('div');
-        //     this._downloadBtn.classList.add('download-button');
-        //     this._downloadBtn.innerHTML = this.options.downloadTitle;
-
-        //     this._downloadBtn.addEventListener('click', () => {
-        //         let scale_value = this._scaleInput.value;
-        //         if (!scale_value || scale_value < this.options.minScale || scale_value > this.options.maxScale) {
-        //             this._scaleInput.value = this.options.minScale;
-        //             return;
-        //         }
-
-        //         //this._containerParams.classList.add('print-disabled');
-        //         this._loader.style.display = 'block';
-        //         //this._print();
-        //     });
-        //     this._containerParams.appendChild(this._downloadBtn);
-        // },
-
-        // _createScaleInput: function () {
-        //     this._scaleInput = document.createElement('input');
-        //     this._scaleInput.style.width = '100%';
-        //     this._scaleInput.type = 'number';
-        //     this._scaleInput.value = this.options.minScale;
-        //     this._scaleInput.min = this.options.minScale;
-        //     this._scaleInput.max = this.options.maxScale;
-        //     this._scaleInput.id = 'scale';
-        //     this._containerParams.appendChild(this._scaleInput);
-
-        // },
-
-        // _createCloseButton: function () {
-        //     let span = document.createElement('div');
-        //     span.classList.add('close');
-        //     span.innerHTML = '&times;';
-
-        //     span.addEventListener('click', () => {
-        //         this._container.classList.remove('leaflet-control-layers-expanded');
-        //         this._containerParams.style.display = 'none';
-        //         this._controlPanel.classList.remove('bigimage-unicode-icon-disable');
-        //     });
-
-        //     this._containerParams.appendChild(span);
-        // },
 
         _createControlPanel: function (classesToAdd, context, label, title) {
             let controlPanel = document.createElement('a');
@@ -288,21 +216,6 @@
             resolve();
         },
 
-        // _changeScale: function (scale) {
-        //     if (!scale || scale <= 1) return 0;
-
-        //     let addX = (this.bounds.max.x - this.bounds.min.x) / 2 * (scale - 1);
-        //     let addY = (this.bounds.max.y - this.bounds.min.y) / 2 * (scale - 1);
-
-        //     this.bounds.min.x -= addX;
-        //     this.bounds.min.y -= addY;
-        //     this.bounds.max.x += addX;
-        //     this.bounds.max.y += addY;
-
-        //     this.canvas.width *= scale;
-        //     this.canvas.height *= scale;
-        // },
-
         _drawPath: function (value) {
 
             // if this path's activity isn't in the currently selected activities, don't add it to screenshot
@@ -402,8 +315,6 @@
             self.ctx.fillRect(0, 0, self.canvas.width, self.canvas.height);
             self.ctx.restore();
 
-            //this._changeScale(document.getElementById('scale').value);
-
             let promise = new Promise(function (resolve, reject) {
                 self._getLayers(resolve);
             });
@@ -425,20 +336,37 @@
                     resolve();
                 }));
             }).then(() => {
-                function resizedCanvas(canvas,newWidth,newHeight) {
-                    var tmpCanvas = document.createElement('canvas');
-                    tmpCanvas.width = newWidth;
-                    tmpCanvas.height = newHeight;
-            
-                    var ctx = tmpCanvas.getContext('2d');
-                    ctx.drawImage(canvas,0,0,canvas.width,canvas.height,0,0,newWidth,newHeight);
-            
-                    return tmpCanvas;
+                function resizedCanvas(c, scaleFactor) {
+                    // Set up CSS size.
+                    var canvas = c;
+                    canvas.style.width = canvas.style.width || canvas.width + 'px';
+                    canvas.style.height = canvas.style.height || canvas.height + 'px';
+
+                    // Get size information.
+                    var width = parseFloat(canvas.style.width);
+                    var height = parseFloat(canvas.style.height);
+
+                    // Backup the canvas contents.
+                    var oldScale = canvas.width / width;
+                    var backupScale = scaleFactor / oldScale;
+                    var backup = canvas.cloneNode(false);
+                    backup.getContext('2d').drawImage(canvas, 0, 0);
+
+                    // Resize the canvas.
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = Math.ceil(width * scaleFactor);
+                    canvas.height = Math.ceil(height * scaleFactor);
+
+                    // Redraw the canvas image and scale future draws.
+                    ctx.setTransform(backupScale, 0, 0, backupScale, 0, 0);
+                    ctx.drawImage(backup, 0, 0);
+                    ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+                    return canvas
                 }
 
                 // optional line to resize the image to something larger. skip this if it's not for a poster.
                 if (highResolution) {
-                    self.canvas = resizedCanvas(self.canvas, self.canvas.width * 7,self.canvas.height * 7);
+                    self.canvas = resizedCanvas(self.canvas, 5);
                 }
                 
                 self.canvas.toBlob(function (blob) {
@@ -447,8 +375,6 @@
                     link.href = URL.createObjectURL(blob);
                     link.click();
                 });
-                // self._containerParams.classList.remove('print-disabled');
-                // self._loader.style.display = 'none';
             });
         }
     });
