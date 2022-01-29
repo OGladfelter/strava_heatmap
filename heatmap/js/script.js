@@ -6,6 +6,7 @@ function demo() {
         cleanAndSetUp(); // some UI changes
         drawHeatmap(data);
     });
+    document.getElementById("buttonOnDemo").style.display = 'inline-block';
 };
 
 function drawHeatmap(data){

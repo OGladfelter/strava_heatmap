@@ -54,14 +54,13 @@
   <body>
     <img id="preview" src="img/activity_heatmap.png">
 
-    <!-- modal -->
+    <!-- loading modal -->
     <div id="loaderModal" class="modal">
       <div id="loader" class="modal-content-2">
         <h1>Loading...</h1>
         <div class="loader"></div>
       </div>
     </div>
-    
 
     <!-- The Modal -->
     <div id="logInModal" class="modal">
@@ -88,6 +87,8 @@
     <!-- the map -->
     <div id="map" style="width:100%; height:100%; display:none;"></div>
     <!--  -->
+
+    <div class="buttonOnDemo" id="buttonOnDemo"><a href="https://www.strava.com/oauth/authorize?client_id=47842&response_type=code&redirect_uri=https://cultureplot.com/strava-heatmap/index.html&approval_prompt=auto&scope=activity:read_all"><img width="50%;" id="strava-button-img" src="img/btn_strava_connect.png"></a></div>
 
     <!-- div container to hold menu items -->
     <div id="menuContainer" class="menuContainer">

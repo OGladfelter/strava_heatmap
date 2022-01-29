@@ -4,8 +4,16 @@ body{
 
 .leaflet-container{ background: #000626; }
 
+.buttonOnDemo {
+    z-index:999;
+    position:fixed;
+    bottom:10;
+    left:10;
+    padding-left: 10;
+    display: none;
+}
 
-.menuContainer{
+.menuContainer {
     z-index:999;
     position:fixed;
     top:10;
