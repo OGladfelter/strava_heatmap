@@ -1,3 +1,13 @@
+function demo() {
+    d3.csv("data/data.csv", function(error, data) {
+        data.forEach(d => {
+            d.map = {summary_polyline:d.summary_polyline};
+        });
+        cleanAndSetUp(); // some UI changes
+        drawHeatmap(data);
+    });
+};
+
 function drawHeatmap(data){
 
     // hide some shit, show some shit
