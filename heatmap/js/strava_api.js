@@ -29,7 +29,7 @@ else if (token_exists & (new Date().getTime() / 1000) >= expires_at) { // their 
     var refreshToken = JSON.parse(localStorage.getItem("strava_data")).refresh_token;
     reAuthorize(refreshToken);
 }
-else if (queryString == "" || queryString == "?state=&error=access_denied"){ // we don't have a code. They still need to log in and authorize
+else if (queryString == "" || queryString == "?state=&error=access_denied") { // we don't have a code. They still need to log in and authorize
     // encourage them to log in and authorize
     console.log("No token in local storage, no authorization code");
     document.getElementById("logInModal").style.display = "block";

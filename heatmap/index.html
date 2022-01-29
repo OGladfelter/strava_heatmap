@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
 
   <body>
@@ -71,15 +71,15 @@
           <h2>Strava Activity Heatmap</h2>
         </div>
         <div class="modal-body">
-          <p>This tool will plot every single run, ride, and hike you've ever uploaded to Strava. You can filter activities by date, start time, and activity type. Additionally, everything in the map - from the colors to the opacity of the lines - is customizable. Customize the map to your heart's content, then use the top left camera button to take a screenshot.</p>
-          <p>To get started, click the button below to authorize this page to access your Strava data. None of your data is saved nor stored.</p>
+          <p style="margin-top: 0px;">Connect to Strava to see all of your activities plotted on a single map. You'll be able to filter by date, start time, and activity type. Customize the map to your heart's content, then use the top left camera button to take a screenshot.</p>
+          <p>Click the button below to get started:</p>
           <div style="text-align:center;"><a class="stravaButton" href="https://www.strava.com/oauth/authorize?client_id=47842&response_type=code&redirect_uri=https://cultureplot.com/strava-heatmap/index.html&approval_prompt=auto&scope=activity:read_all"><img id="strava-button-img" class="stravaButton" src="img/btn_strava_connect.png"></a></div>
-          <p>Here's what's in store for you once you log in (minus the royalty-free elevator music):</p>
+          <p>Want to see more before using your own data? Check out the video below or <span class="fakeLink">click here to demo the heatmap with some test data</span>.</p>
           <div style="text-align:center; margin-top:0px;">
-              <video width="75%" controls muted autoplay loop poster="img/activity_heatmap.png" id="video">
-              <source src="img/video.mp4" type="video/mp4">
-              Your browser does not support the video tag.
-          </video>
+              <video width="90%" controls muted autoplay loop poster="img/activity_heatmap.png" id="video">
+                  <source src="img/video.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+              </video>
           </div>
         </div>
       </div>
