@@ -28,18 +28,17 @@ function drawHeatmap(data){
     // icon allowing users to download screenshots
     L.control.bigImage().addTo(map);
 
+    // filter out activities without GPS
+    data = data.filter(d => d.map.summary_polyline);
+
     try {
         // setView of map on most recent starting position start_latitude,start_longitude
         map.setView([parseFloat(data[0]['start_latitude']), parseFloat(data[0]['start_longitude'])], 13);
     }
     catch {
-        // setView failed for unknown reason. just set view to NYC and turn on terrain map
+        // setView failed for unknown reason. just set view to NYC
         map.setView([40.7128, -74.0060], 13);
-        map.addLayer(mapTilesTerrain);
     }
-
-    // filter out activities without a summary polyline
-    data = data.filter(d => d.map['summary_polyline'] != "");
         
     var parseDate = d3.timeParse("%Y-%m-%d");
 
