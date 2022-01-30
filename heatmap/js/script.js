@@ -1,5 +1,5 @@
 function demo() {
-    d3.csv("data/data.csv", function(error, data) {
+    d3.csv("data/test.csv", function(error, data) {
         data.forEach(d => {
             d.map = {summary_polyline:d.summary_polyline};
         });
@@ -8,6 +8,10 @@ function demo() {
     });
     document.getElementById("buttonOnDemo").style.display = 'inline-block';
 };
+
+function round(num) {    
+    return +(Math.round(num + "e+1")  + "e-1");
+}
 
 function drawHeatmap(data) {
 
@@ -64,10 +68,8 @@ function drawHeatmap(data) {
         // const regex=/:\d\dZ/;
         // d.time = d.start_date_local.split("T")[1].replace(regex,"");
 
-        // round starting coordinates
-        d.start_latitude = (+d.start_latitude).toFixed(2);
-        d.start_longitude = (+d.start_longitude).toFixed(2);
-        d.start_point = d.start_latitude + ", " + d.start_longitude;
+        // create a (wide) start point for each activity so we can group them for the jumper table
+        d.start_point = round(parseFloat(d.start_latitude)) + ", " + round(parseFloat(d.start_longitude));
 
         d.miles = (d.distance / 1609).toFixed(2);
 
@@ -317,11 +319,11 @@ function drawHeatmap(data) {
 
         // count # of activities in each major starting locations
         var nest = d3.nest()
-        .key(function(d){return d.start_point;})
-        .entries(subset)
-        .sort(function(a, b){ return d3.ascending(a.values, b.values); })
-        .filter(function(a){return a.values.length >= 10})
-
+            .key(function(d){return d.start_point;})
+            .entries(subset)
+            .sort(function(a, b){ return d3.ascending(a.values, b.values); })
+            .filter(function(a){return a.values.length >= 10})
+        
         // if there's only one major starting point, remove the entire menu section altogether
         if (nest.length <= 1){
             document.getElementById("jumperMenu").style.display = "none";
@@ -349,7 +351,8 @@ function drawHeatmap(data) {
         for (i=0; i<nest.length; i++){
             var row = table.insertRow(0); // add new row at 1st position
             row.classList.add("rowButton");
-            row.id = nest[i].key.replace(" ","");
+            row.setAttribute("start_latitude", nest[i].values[0].start_latitude);
+            row.setAttribute("start_longitude", nest[i].values[0].start_longitude);
             var cell1 = row.insertCell(0); // add new cells
             var cell2 = row.insertCell(1);
             cell1.innerHTML = nest[i].key; // Add some text to the new cells:
@@ -362,9 +365,8 @@ function drawHeatmap(data) {
             
             // add function to call when this row is clicked
             row.addEventListener("click", function() {
-                var coords = this.id; // get coordinates which are in the HTML of first td of row
-                var lat = Number(coords.split(",")[0]); // pull out lat
-                var long = Number(coords.split(",")[1]) // and long
+                var lat = this.getAttribute("start_latitude"); // get coordinates
+                var long = this.getAttribute("start_longitude"); // get coordinates
                 map.panTo([lat, long], 14); // set map view on these coords
             });
         }
