@@ -71,7 +71,10 @@ tr.rowButton:hover{
     font-size: 16px;
 }
 .activityCount {
-    color:rgb(75, 75, 75); font-size:14px; float:right;
+    color:rgb(75, 75, 75); 
+    font-size:14px; 
+    float:right;
+    margin-top: 2px;
 }
 td.menuItemLabel{
     width: 30%;
