@@ -10,7 +10,7 @@ function demo() {
 };
 
 function round(num) {    
-    return +(Math.round(num + "e+2")  + "e-2");
+    return +(Math.round(num + "e+1")  + "e-1");
 }
 
 function drawHeatmap(data) {
@@ -323,8 +323,6 @@ function drawHeatmap(data) {
             .entries(subset)
             .sort(function(a, b){ return d3.ascending(a.values, b.values); })
             .filter(function(a){return a.values.length >= 10})
-
-        console.log(nest);
         
         // if there's only one major starting point, remove the entire menu section altogether
         if (nest.length <= 1) {
