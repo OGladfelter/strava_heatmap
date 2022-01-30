@@ -11,8 +11,6 @@ function demo() {
 
 function drawHeatmap(data) {
 
-    console.log(data);
-
     // hide some shit, show some shit
     document.getElementById("preview").style.display = "none";
     document.getElementById("map").style.display = 'block';
@@ -78,7 +76,7 @@ function drawHeatmap(data) {
 
     // create array of all unique activity types in user's data
     activityTypes = d3.map(data, function(d){return d.type;}).keys();
-    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
+    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " types";
 
     // add rows to jumper table
     updateJumperTable();
@@ -125,11 +123,11 @@ function drawHeatmap(data) {
                     }
                 }
 
-                if (activityTypes.length == "1"){
+                if (activityTypes.length == "1") {
                     document.getElementById("dropdownButton").innerHTML = activityTypes[0].replace(/([A-Z])/g, " $1");
                 }
-                else{
-                    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " activities";
+                else {
+                    document.getElementById("dropdownButton").innerHTML = activityTypes.length + " types";
                 }
 
                 // before updating map, get dates
@@ -341,8 +339,8 @@ function drawHeatmap(data) {
         if (activityTypes.length == 1){
             var label = activityTypes[0].toLowerCase() + "s";
         }
-        else{
-            var label= "Activities";
+        else {
+            var label= "activities";
         };
 
         // for each of the entries in nest, add a row to table
