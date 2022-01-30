@@ -1,5 +1,5 @@
 function demo() {
-    d3.csv("data/test.csv", function(error, data) {
+    d3.csv("data/data.csv", function(error, data) {
         data.forEach(d => {
             d.map = {summary_polyline:d.summary_polyline};
         });
