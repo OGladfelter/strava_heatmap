@@ -82,11 +82,13 @@ function drawHeatmap(data) {
     updateJumperTable();
 
     // if there's only one type of activity, hide the activity row in filter menu
-    if (activityTypes.length == 1){
+    if (activityTypes.length == 1) {
         document.getElementById("activitiesRow").style.display = "none";
     }
-    else{
+    else {
         activityTypes.forEach(function(activity){
+
+            var activityLength = data.filter(d => d.type == activity).length;
 
             // for show activity filter
             var div = document.getElementById("activityMenu");
@@ -101,14 +103,14 @@ function drawHeatmap(data) {
             var label = document.createElement("label");
             label.for = activity + "Name";
             label.id = activity + "BoxLabel";
-            label.innerHTML = activity.replace(/([A-Z])/g, " $1");
+            label.innerHTML = activity.replace(/([A-Z])/g, " $1") + " <span class='activityCount'>" + activityLength + "</span>";
 
             var container = document.createElement("div");
             container.classList.add("checkboxContainer");
             container.appendChild(input);
             container.appendChild(label);
 
-            container.addEventListener("click", function(){
+            container.addEventListener("click", function() {
                 input.checked ? input.checked = false : input.checked = true;
 
                 if (input.checked) { // if box is checked, add activity from activityTypes
