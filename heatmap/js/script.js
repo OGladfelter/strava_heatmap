@@ -9,7 +9,9 @@ function demo() {
     document.getElementById("buttonOnDemo").style.display = 'inline-block';
 };
 
-function drawHeatmap(data){
+function drawHeatmap(data) {
+
+    console.log(data);
 
     // hide some shit, show some shit
     document.getElementById("preview").style.display = "none";
@@ -53,7 +55,7 @@ function drawHeatmap(data){
         
     var parseDate = d3.timeParse("%Y-%m-%d");
 
-    data.forEach(function(d){
+    data.forEach(function(d) {
         d.date = parseDate(d.start_date_local.split("T")[0]);
 
         d.start_date_local = d.start_date_local.replace("Z","");
@@ -73,10 +75,6 @@ function drawHeatmap(data){
 
         d.summary_polyline = d.map["summary_polyline"];
     });
-
-    data = data.filter(function(d){return (isNaN(d.summary_polyline))});
-        
-    //console.log(data);
 
     // create array of all unique activity types in user's data
     activityTypes = d3.map(data, function(d){return d.type;}).keys();
@@ -171,7 +169,7 @@ function drawHeatmap(data){
 
     // DRAW THE ACTIVITY LINES ONTO THE MAP
     paths = {}
-    for (i=0; i<data.length; i++){
+    for (i=0; i<data.length; i++) {
         
         var coordinates = L.Polyline.fromEncoded(data[i].summary_polyline).getLatLngs();
 
@@ -183,9 +181,16 @@ function drawHeatmap(data){
                 opacity: 1,
                 lineJoin: 'round',
                 name: data[i].name,
-                activity: data[i].type
+                activity: data[i].type,
+                id: data[i].id
             },
         )
+        .on('click', function() { 
+            if (Number(this.options.id) > 115) { // don't activate on demo
+                var url = "https://www.strava.com/activities/" + this.options.id;
+                window.open(url, '_blank').focus();
+            }
+        })
         .addTo(map)
         .bindTooltip(data[i].name + "<br>" + data[i].miles + " miles<br>" + data[i].start_date_local.split("T")[0], {sticky: true, className: 'myCSSClass'});
 
@@ -374,12 +379,12 @@ function drawHeatmap(data){
     }
 
     // hover over any path to highlight it
-    d3.selectAll("path").on("mouseover", function(){
+    d3.selectAll("path").on("mouseover", function() {
         d3.select(this).style('stroke', 'yellow');
         d3.select(this).style('opacity', 1);
         d3.select(this).raise();
     })
-    .on("mouseout", function(){
+    .on("mouseout", function() {
         d3.select(this).style('stroke', this.getAttribute("lineColor") ? this.getAttribute("lineColor") : document.getElementById("lineColor").value);
         d3.select(this).style('opacity', $('#alphaSlider').slider("option", "value"));
     });
