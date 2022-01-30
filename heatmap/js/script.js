@@ -10,7 +10,7 @@ function demo() {
 };
 
 function round(num) {    
-    return +(Math.round(num + "e+1")  + "e-1");
+    return +(Math.round(num + "e+2")  + "e-2");
 }
 
 function drawHeatmap(data) {
@@ -323,13 +323,15 @@ function drawHeatmap(data) {
             .entries(subset)
             .sort(function(a, b){ return d3.ascending(a.values, b.values); })
             .filter(function(a){return a.values.length >= 10})
+
+        console.log(nest);
         
         // if there's only one major starting point, remove the entire menu section altogether
-        if (nest.length <= 1){
+        if (nest.length <= 1) {
             document.getElementById("jumperMenu").style.display = "none";
             return;
         }
-        else{
+        else {
             document.getElementById("jumperMenu").style.display = "block";
         }
 
@@ -348,7 +350,7 @@ function drawHeatmap(data) {
         };
 
         // for each of the entries in nest, add a row to table
-        for (i=0; i<nest.length; i++){
+        for (i=0; i<nest.length; i++) {
             var row = table.insertRow(0); // add new row at 1st position
             row.classList.add("rowButton");
             row.setAttribute("start_latitude", nest[i].values[0].start_latitude);
@@ -356,10 +358,10 @@ function drawHeatmap(data) {
             var cell1 = row.insertCell(0); // add new cells
             var cell2 = row.insertCell(1);
             cell1.innerHTML = nest[i].key; // Add some text to the new cells:
-            if (i==nest.length-1){
+            if (i == nest.length - 1) {
                 cell2.innerHTML = nest[i].values.length + " " + label;
             }
-            else{
+            else {
                 cell2.innerHTML = nest[i].values.length;
             }
             
