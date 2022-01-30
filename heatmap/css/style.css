@@ -4,8 +4,16 @@ body{
 
 .leaflet-container{ background: #000626; }
 
+.buttonOnDemo {
+    z-index:999;
+    position:fixed;
+    bottom:10;
+    left:10;
+    padding-left: 10;
+    display: none;
+}
 
-.menuContainer{
+.menuContainer {
     z-index:999;
     position:fixed;
     top:10;
@@ -74,7 +82,7 @@ td{
     text-align: middle;
 }
 
-p{
+p {
     font-size: 16px;
 }
 
@@ -295,19 +303,31 @@ input[type=color]{
       font-size: 18px;
   }
   
-  .modal-header {
+.modal-header {
     padding: 2px;
     background-color: whitesmoke;
     color: black;
-    border-bottom: 1px gray solid;
-  }
+    text-align: center;
+    vertical-align: middle;
+}
   
-.modal-body {padding: 2px;}
+.modal-body {
+    padding: 2px;
+    width: 80%;
+    margin: auto;
+}
   
 .stravaButton{
     width: 30%;
 }
 
+.fakeLink {
+    color: blue;
+    cursor: pointer;
+}
+.fakeLink:hover {
+    text-decoration: underline;
+}
 
 #preview{
     height: 98vh;
