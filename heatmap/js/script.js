@@ -72,6 +72,7 @@ function drawHeatmap(data) {
         d.start_point = round(parseFloat(d.start_latitude)) + ", " + round(parseFloat(d.start_longitude));
 
         d.miles = (d.distance / 1609).toFixed(2);
+        d.km = (d.distance / 1000).toFixed(2);
 
         d.summary_polyline = d.map["summary_polyline"];
     });
@@ -195,8 +196,6 @@ function drawHeatmap(data) {
         })
         .addTo(map)
         .bindTooltip(data[i].name + "<br>" + data[i].miles + " miles<br>" + data[i].start_date_local.split("T")[0], {sticky: true, className: 'myCSSClass'});
-
-        //polyline.bindTooltip('stuff')
     }
 
     // set opacity of all lines
@@ -390,6 +389,19 @@ function drawHeatmap(data) {
         d3.select(this).style('stroke', this.getAttribute("lineColor") ? this.getAttribute("lineColor") : document.getElementById("lineColor").value);
         d3.select(this).style('opacity', $('#alphaSlider').slider("option", "value"));
     });
+
+    // customization menu item - switch tooltip to show miles vs km
+    document.getElementById("metric").addEventListener("click", function() { 
+        data.forEach(d => {
+            paths[d.id].setTooltipContent(d.name + "<br>" + d.miles + " miles<br>" + d.start_date_local.split("T")[0]);
+        });
+    });
+    document.getElementById("imperial").addEventListener("click", function() { 
+        data.forEach(d => {
+            paths[d.id].setTooltipContent(d.name + "<br>" + d.km + " km<br>" + d.start_date_local.split("T")[0]);
+        });
+    });
+
 
     // customization menu item - click radio buttons to turn map tiles on/off
     document.getElementById("noMapButton").addEventListener("click", function() { 
