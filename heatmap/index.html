@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css?v=2" />
+    <link rel="stylesheet" href="css/style.min.css?v=3" />
   </head>
 
   <body>
@@ -183,6 +183,20 @@
             <td>Line Opacity</td>
             <td><div id="alphaSlider"></div></td>
           </tr>
+          <tr>
+            <td colspan="2">
+              <div style="display:flex; justify-content:space-evenly;">
+                <div>
+                  <input type="radio" id="metric" name="tooltipOptions" checked>
+                  <label for="mapOption1">Metric</label>
+                </div>
+                <div>
+                  <input type="radio" id="imperial" name="tooltipOptions">
+                  <label for="mapOption4">Imperial</label>
+                </div>
+              </div>
+            </td>
+          </tr>
         </table>
       </div>
       <!--  -->
@@ -224,7 +238,7 @@
     
     </div>
 
-    <script src="js/script.js?v=2"></script>
+    <script src="js/script.min.js?v=3"></script>
     <script src="js/ui.min.js"></script>
     <script src="js/strava_api.min.js?v=2"></script>
     <script src="js/BigImage.min.js?v=2"></script>
