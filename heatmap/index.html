@@ -24,7 +24,7 @@
     <meta property="og:url" content="http://cultureplot.com/strava-heatmap/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Mapping Strava Activities" />
-    <meta property="og:description" content="Connect to strava to visualize your Strava activities in a fully customizable dashboard"/>
+    <meta property="og:description" content="A highly customizable heatmap for your Strava activities"/>
 
     <meta property="og:image" content="https://cultureplot.com/img/chicago_run_map.png" />
     <meta property="og:image:alt" content="Strava activity heatmap" />
@@ -36,7 +36,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://cultureplot.com/img/chicago_run_map.png" />
     <meta name="twitter:image:alt" content="Strava activity heatmap" />
-    <meta name="twitter:description" content="Visualize Your Strava Activities In A Fully Customizable Dashboard"/>
+    <meta name="twitter:description" content="A highly customizable heatmap for your Strava activities"/>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script type="text/javascript" src="https://rawgit.com/jieter/Leaflet.encoded/master/Polyline.encoded.js"></script>
@@ -67,13 +67,14 @@
       <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-header">
-          <h2>Strava Activity Heatmap</h2>
+          <h1>Strava Activity Heatmap</h1>
+          <p style="margin-top: 0px;">By <a href="https://cultureplot.com/about/" target="_blank">Oliver Gladfelter</a></p>
         </div>
         <div class="modal-body">
-          <p style="margin-top: 0px;">Connect to Strava to see all of your activities plotted on a single map. You'll be able to filter by date, start time, and activity type. Customize the map to your heart's content, then use the top left camera button to take a screenshot.</p>
-          <p>Click the button below to get started:</p>
+          <p style="margin-top: 0px;">Connect to Strava to see your activity heatmap. Once connected, you'll be able to filter the activities, customize the map, and jump to your common starting locations. Use the &#x1F4F7; button to capture your favorite views.</p>
+          <!-- <p>Click the button below to get started:</p> -->
           <div style="text-align:center;"><a class="stravaButton" href="https://www.strava.com/oauth/authorize?client_id=47842&response_type=code&redirect_uri=https://cultureplot.com/strava-heatmap/index.html&approval_prompt=auto&scope=activity:read_all"><img id="strava-button-img" class="stravaButton" src="img/btn_strava_connect.png"></a></div>
-          <p>Want to see more before using your own data? Check out the video below or <span class="fakeLink" onclick="demo()">click here to demo the heatmap with some test data</span>.</p>
+          <p>You can also <span class="fakeLink" onclick="demo()">click here to demo the heatmap with some test data</span> or watch the video below:</p>
           <div style="text-align:center; margin-top:0px;">
               <video width="90%" controls muted autoplay loop poster="img/activity_heatmap.png" id="video">
                   <source src="img/video.mp4" type="video/mp4">

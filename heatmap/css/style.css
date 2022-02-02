@@ -13,6 +13,14 @@ body{
     display: none;
 }
 
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+
 .menuContainer {
     z-index:999;
     position:fixed;
