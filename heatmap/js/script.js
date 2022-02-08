@@ -354,7 +354,10 @@ function drawHeatmap(data) {
             row.setAttribute("start_longitude", nest[i].values[0].start_longitude);
             var cell1 = row.insertCell(0); // add new cells
             var cell2 = row.insertCell(1);
-            cell1.innerHTML = nest[i].key; // Add some text to the new cells:
+            cell1.id = nest[i].key;
+            cell1.innerHTML = nest[i].key; // add lat long as text label - this should get overwritten in reverse_geocode(), but is a backup
+            reverse_geocode(nest[i].values[0].start_latitude, nest[i].values[0].start_longitude, nest[i].key); // add city name as text label
+            
             if (i == nest.length - 1) {
                 cell2.innerHTML = nest[i].values.length + " " + label;
             }
@@ -369,14 +372,6 @@ function drawHeatmap(data) {
                 map.panTo([lat, long], 14); // set map view on these coords
             });
         }
-
-        // loop over rows, relabel using API
-        // var rows = table.rows;
-        // for (row=0;row<rows.length;row++){
-        //     reverse_geocode(rows[row].id);
-        //     //reverse_geocode_no_php(rows[row].id)
-        //     //console.log("hi");
-        // }
     }
 
     // hover over any path to highlight it
