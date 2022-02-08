@@ -104,45 +104,49 @@ document.getElementById("highResolutionButton").addEventListener("mouseenter", f
 });
 
 var latlngDict = {};
-// function reverse_geocode(latlng){
+function reverse_geocode(lat, lng, row_id){
     
-//     // save an API call, see if we've already looked this info up
-//     if (latlng in latlngDict){
-//         document.getElementById(latlng).cells[0].innerHTML = latlngDict[latlng];
-//         return // don't run anything else
-//     }
-//     else{
-//         $.ajax({
-//             url: 'geocode.php',
-//             type: "GET",
-//             data: ({'latlng':latlng}),
-//             complete: function(resp){
-//                 var response = resp.responseText;
-//                 data = JSON.parse(response);
-//                 var API_result = data.results[0].address_components[0].short_name;
-//                 document.getElementById(latlng).cells[0].innerHTML = API_result;
-//                 latlngDict[latlng] = API_result;
-//             }
-//         });  
-//     }
-// }
+    var latlng = String(lat) + ", " + String(lng);
 
-// function reverse_geocode_no_php(latlng){
+    // don't recall API if we already have for this latlng
+    if (latlng in latlngDict) {
+        document.getElementById(row_id).innerHTML = latlngDict[latlng];
+        return;
+    }
+    else {
+        $.ajax({
+            url: 'geocode.php',
+            type: "GET",
+            data: ({'latlng':latlng}),
+            complete: function(resp) {
+                var response = resp.responseText;
+                var data = JSON.parse(response);
+                var API_result = data.results[0].address_components[0].short_name;
+                latlngDict[latlng] = API_result; // save result to dictionary
+                document.getElementById(row_id).innerHTML = latlngDict[latlng];
+            }
+        });  
+    }
+}
 
-//     // save an API call, see if we've already looked this info up
-//     if (latlng in latlngDict){
-//         document.getElementById(latlng).cells[0].innerHTML = latlngDict[latlng];
-//         console.log("hi")
-//         return // don't run anything else
+// use this function for testing
+// function reverse_geocode_no_php(lat, lng, row_id){
+
+//     var latlng = String(lat) + ", " + String(lng);
+
+//     // don't recall API if we already have for this latlng
+//     if (latlng in latlngDict) {
+//         document.getElementById(row_id).innerHTML = latlngDict[latlng];
+//         return;
 //     }
-//     else{
-//        const activities_link = "https://maps.googleapis.com/maps/api/geocode/json?&key={}&result_type=neighborhood&latlng=" + latlng; // google api key goes in brackets
+//     else {
+//        const activities_link = "https://maps.googleapis.com/maps/api/geocode/json?&key={}&result_type=locality&latlng=" + latlng; // google api key goes in brackets
 //         fetch(activities_link)
 //         .then(response => response.json())
 //         .then((json) => {
 //             var API_result = json.results[0].address_components[0].short_name;
-//             document.getElementById(latlng).cells[0].innerHTML = API_result;
-//             latlngDict[latlng] = API_result;
+//             latlngDict[latlng] = API_result; // save result to dictionary
+//             document.getElementById(row_id).innerHTML = latlngDict[latlng];
 //         }) 
 //     }
 // }

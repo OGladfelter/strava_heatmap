@@ -2,7 +2,7 @@
     
     $url = 'https://maps.googleapis.com/maps/api/geocode/json';
     
-    $params = array('key' => '', 'result_type' => 'neighborhood', 'latlng' => $_GET['latlng']);
+    $params = array('key' => '', 'result_type' => 'locality', 'latlng' => $_GET['latlng']);
 
     // create curl resource
     $ch = curl_init();
