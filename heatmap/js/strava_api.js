@@ -113,6 +113,12 @@ function getActivities(pageNum){
         }
         else if (json.length < 200){ // we've reached the final page
             strava_data = strava_data.concat(json); // save final page's activities to main data array and move on
+
+            strava_data.forEach(function(d) {
+                d.start_latitude = d.start_latlng[0];
+                d.start_longitude = d.start_latlng[1];
+            });
+
             drawHeatmap(strava_data);
         }
     })
