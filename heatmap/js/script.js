@@ -47,7 +47,6 @@ function drawHeatmap(data) {
 
     // filter out activities without GPS
     data = data.filter(d => d.coordinates || d.map.summary_polyline);
-    console.log(data);
 
     try {
         // setView of map on most recent starting position start_latitude,start_longitude
@@ -473,13 +472,14 @@ function handleFileLoad(event) {
         // console.log(e.target.get_average_hr());
         // console.log(e.target.get_average_cadence());
         // console.log(e.target.get_average_temp());
-        //return e.target.get_start_time(), e.target.get_name(), e.target.get_distance();
-        console.log(gpxInfo);
+
+        var startTime = e.target.get_start_time();
+        var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
     
         data = [];
         data.push({coordinates:coordinates,
                     id:1,
-                    start_date_local:e.target.get_start_time().toString(),
+                    start_date_local:start_date_local,
                     start_latitude:coordinates[0].lat,
                     start_longitude:coordinates[0].lon,
                     type:'Run',
@@ -489,5 +489,7 @@ function handleFileLoad(event) {
                 });
 
         drawHeatmap(data);
+
+        document.getElementById('manualUploadModal').style.display = 'none';
     });
 }
