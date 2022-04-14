@@ -46,6 +46,7 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.min.css?v=3" />
@@ -81,6 +82,24 @@
                   Your browser does not support the video tag.
               </video>
           </div>
+          <p onclick="document.getElementById('logInModal').style.display = 'none'; document.getElementById('manualUploadModal').style.display = 'block';">New feature: upload GPX files directly</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="manualUploadModal" class="modal" style="display:block;">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <p style="text-align:left;" onclick="document.getElementById('logInModal').style.display = 'block'; document.getElementById('manualUploadModal').style.display = 'none';">&#11013;</p>
+          <h1>Manual File Upload</h1>
+        </div>
+        <div class="modal-body">
+          <input id="fileInput" type="file" name="file" />
+
+          <!-- <input type="file" id="input" multiple>
+          <button onclick="manualUpload()">Go</button> -->
         </div>
       </div>
     </div>
@@ -239,10 +258,10 @@
     
     </div>
 
-    <script src="js/script.min.js?v=4"></script>
-    <script src="js/ui.min.js?v=2"></script>
-    <script src="js/strava_api.min.js?v=3"></script>
-    <script src="js/BigImage.min.js?v=2"></script>
+    <script src="js/script.js?v=4"></script>
+    <script src="js/ui.js?v=2"></script>
+    <script src="js/strava_api.js?v=3"></script>
+    <script src="js/BigImage.js?v=2"></script>
 
   </body>
 </html>

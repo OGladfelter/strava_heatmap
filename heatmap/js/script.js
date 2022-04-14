@@ -1,3 +1,5 @@
+document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
 function demo() {
     d3.csv("data/data.csv", function(error, data) {
         data.forEach(d => {
@@ -44,7 +46,8 @@ function drawHeatmap(data) {
     L.control.bigImage().addTo(map);
 
     // filter out activities without GPS
-    data = data.filter(d => d.map.summary_polyline);
+    data = data.filter(d => d.coordinates || d.map.summary_polyline);
+    console.log(data);
 
     try {
         // setView of map on most recent starting position start_latitude,start_longitude
@@ -174,7 +177,12 @@ function drawHeatmap(data) {
     paths = {}
     for (i=0; i<data.length; i++) {
         
-        var coordinates = L.Polyline.fromEncoded(data[i].summary_polyline).getLatLngs();
+        if (data[i].coordinates) { // file was manually uploaded, so we already have coordinates
+            var coordinates = data[i].coordinates;
+        } 
+        else { // data comes from strava API, so we need coordinates from polyline
+            var coordinates = L.Polyline.fromEncoded(data[i].summary_polyline).getLatLngs();
+        }
 
         paths[data[i].id] = L.polyline(
             coordinates,
@@ -429,4 +437,57 @@ function drawHeatmap(data) {
     });
 
     document.getElementById("loaderModal").style.display="none";
+}
+
+
+
+function handleFileSelect(event) {
+    const reader = new FileReader()
+    reader.onload = handleFileLoad;
+    reader.readAsText(event.target.files[0]);
+}
+
+function handleFileLoad(event) {
+    var xml = $(event.target.result)[2];
+    var trackPoints = d3.select(xml).selectAll('trkpt');
+    var coordinates = [];
+
+	trackPoints.each(function() {
+		var lat = parseFloat(d3.select(this).attr("lat"));
+		var lon = parseFloat(d3.select(this).attr("lon"));
+		coordinates.push({lat:lat, lon:lon});
+	});
+
+    var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
+        // see https://github.com/mpetazzoni/leaflet-gpx
+        // console.log(e.target.get_name());
+        // console.log(e.target.get_distance());
+        // console.log(e.target.get_start_time());
+        // console.log(e.target.get_end_time());
+        // console.log(e.target.get_moving_time());
+        // console.log(e.target.get_total_time());
+        // console.log(e.target.get_moving_pace());
+        // console.log(e.target.get_moving_speed());
+        // console.log(e.target.get_elevation_gain());
+        // console.log(e.target.get_speed_max());
+        // console.log(e.target.get_average_hr());
+        // console.log(e.target.get_average_cadence());
+        // console.log(e.target.get_average_temp());
+        //return e.target.get_start_time(), e.target.get_name(), e.target.get_distance();
+        console.log(gpxInfo);
+    
+        data = [];
+        data.push({coordinates:coordinates,
+                    id:1,
+                    start_date_local:e.target.get_start_time().toString(),
+                    start_latitude:coordinates[0].lat,
+                    start_longitude:coordinates[0].lon,
+                    type:'Run',
+                    distance:e.target.get_distance(),
+                    name:e.target.get_name(),
+                    map:{summary_polyline:''}
+                });
+
+        drawHeatmap(data);
+    });
 }
