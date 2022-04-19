@@ -82,24 +82,8 @@
                   Your browser does not support the video tag.
               </video>
           </div>
-          <p onclick="document.getElementById('logInModal').style.display = 'none'; document.getElementById('manualUploadModal').style.display = 'block';">Don't use Strava? <span class="fakeLink">Click here to upload your GPX files directly</span>.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- The Modal -->
-    <div id="manualUploadModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <div class="modal-header">
-          <p style="text-align:left;" onclick="document.getElementById('logInModal').style.display = 'block'; document.getElementById('manualUploadModal').style.display = 'none';" class="fakeLink">&#11013;</p>
-          <h1>Manual File Upload</h1>
-        </div>
-        <div class="modal-body">
-          <input id="fileInput" type="file" name="file" />
-
-          <!-- <input type="file" id="input" multiple>
-          <button onclick="manualUpload()">Go</button> -->
+          <p onclick="document.getElementById('fileInput').click()">Don't use Strava? <span class="fakeLink">Click here to manually upload GPX files</span>.</p>
+          <input id="fileInput" type="file" name="file" style="display:none;"/>
         </div>
       </div>
     </div>

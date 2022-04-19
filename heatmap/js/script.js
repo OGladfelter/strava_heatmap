@@ -458,21 +458,7 @@ function handleFileLoad(event) {
 	});
 
     var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
-        // see https://github.com/mpetazzoni/leaflet-gpx
-        // console.log(e.target.get_name());
-        // console.log(e.target.get_distance());
-        // console.log(e.target.get_start_time());
-        // console.log(e.target.get_end_time());
-        // console.log(e.target.get_moving_time());
-        // console.log(e.target.get_total_time());
-        // console.log(e.target.get_moving_pace());
-        // console.log(e.target.get_moving_speed());
-        // console.log(e.target.get_elevation_gain());
-        // console.log(e.target.get_speed_max());
-        // console.log(e.target.get_average_hr());
-        // console.log(e.target.get_average_cadence());
-        // console.log(e.target.get_average_temp());
-
+        // https://github.com/mpetazzoni/leaflet-gpx
         var startTime = e.target.get_start_time();
         var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
     
@@ -488,8 +474,7 @@ function handleFileLoad(event) {
                     map:{summary_polyline:''}
                 });
 
+        cleanAndSetUp();
         drawHeatmap(data);
-
-        document.getElementById('manualUploadModal').style.display = 'none';
     });
 }
