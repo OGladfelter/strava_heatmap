@@ -87,6 +87,7 @@ function drawHeatmap(data) {
     // if there's only one type of activity, hide the activity row in filter menu
     if (activityTypes.length == 1) {
         document.getElementById("activitiesRow").style.display = "none";
+        document.getElementById("colorByActivityButton").style.display = "none";
     }
     else {
         activityTypes.forEach(function(activity){
@@ -194,7 +195,7 @@ function drawHeatmap(data) {
             },
         )
         .on('click', function() { 
-            if (Number(this.options.id) > 115) { // don't activate on demo
+            if (Number(this.options.id) > 1000) { // don't activate on demo or manual file upload (assuming no one manually uploads 1k+ files)
                 var url = "https://www.strava.com/activities/" + this.options.id;
                 window.open(url, '_blank').focus();
             }
@@ -490,7 +491,7 @@ function readMultipleFiles(event) {
                 var startTime = e.target.get_start_time();
                 var start_date_local = startTime.getFullYear() + '-' + (startTime.getMonth() + 1) + '-' + startTime.getDate() + 'T12:00:00';
                 data.push({coordinates:coordinates,
-                    id:1,
+                    id:data.length,
                     start_date_local:start_date_local,
                     start_latitude:coordinates[0].lat,
                     start_longitude:coordinates[0].lng,
@@ -499,6 +500,10 @@ function readMultipleFiles(event) {
                     name:e.target.get_name(),
                     map:{summary_polyline:''}
                 });
+                if (data.length >= files.length) { // replace this tech-debt with Promises?
+                    cleanAndSetUp();
+                    drawHeatmap(data);
+                }
             });
         };
     }
