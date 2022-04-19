@@ -44,7 +44,7 @@ function drawHeatmap(data) {
     L.control.bigImage().addTo(map);
 
     // filter out activities without GPS
-    data = data.filter(d => d.map.summary_polyline);
+    data = data.filter(d => d.map.summary_polyline || d.coordinates);
 
     try {
         // setView of map on most recent starting position start_latitude,start_longitude
@@ -65,8 +65,6 @@ function drawHeatmap(data) {
         var hours = dateTime.getHours();
         var minutes = dateTime.getMinutes();
         d.time = (hours * 60) + minutes; // subtracting 5 * 60 should convert to EST I think
-        // const regex=/:\d\dZ/;
-        // d.time = d.start_date_local.split("T")[1].replace(regex,"");
 
         // create a (wide) start point for each activity so we can group them for the jumper table
         d.start_point = round(parseFloat(d.start_latitude)) + ", " + round(parseFloat(d.start_longitude));
@@ -87,6 +85,7 @@ function drawHeatmap(data) {
     // if there's only one type of activity, hide the activity row in filter menu
     if (activityTypes.length == 1) {
         document.getElementById("activitiesRow").style.display = "none";
+        document.getElementById("colorByActivityButton").style.display = "none";
     }
     else {
         activityTypes.forEach(function(activity){
@@ -174,7 +173,12 @@ function drawHeatmap(data) {
     paths = {}
     for (i=0; i<data.length; i++) {
         
-        var coordinates = L.Polyline.fromEncoded(data[i].summary_polyline).getLatLngs();
+        if (data[i].coordinates) { // file was manually uploaded, so we already have coordinates
+            var coordinates = data[i].coordinates;
+        } 
+        else { // data comes from strava API, so we need coordinates from polyline
+            var coordinates = L.Polyline.fromEncoded(data[i].summary_polyline).getLatLngs();
+        }
 
         paths[data[i].id] = L.polyline(
             coordinates,
@@ -189,7 +193,7 @@ function drawHeatmap(data) {
             },
         )
         .on('click', function() { 
-            if (Number(this.options.id) > 115) { // don't activate on demo
+            if (Number(this.options.id) > 1000) { // don't activate on demo or manual file upload (assuming no one manually uploads 1k+ files)
                 var url = "https://www.strava.com/activities/" + this.options.id;
                 window.open(url, '_blank').focus();
             }
@@ -429,4 +433,78 @@ function drawHeatmap(data) {
     });
 
     document.getElementById("loaderModal").style.display="none";
+}
+
+// function handleFileSelect(event) {
+//     const reader = new FileReader()
+//     reader.onload = handleFileLoad;
+//     reader.readAsText(event.target.files[0]);
+// }
+
+// function handleFileLoad(event) {
+//     var xml = $(event.target.result)[2];
+//     var trackPoints = d3.select(xml).selectAll('trkpt');
+//     var coordinates = [];
+
+// 	trackPoints.each(function() {
+// 		var lat = parseFloat(d3.select(this).attr("lat"));
+// 		var lon = parseFloat(d3.select(this).attr("lon"));
+// 		coordinates.push({lat:lat, lon:lon});
+// 	});
+
+//     var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
+//         // https://github.com/mpetazzoni/leaflet-gpx
+//         var startTime = e.target.get_start_time();
+//         var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
+    
+//         data = [];
+//         data.push({coordinates:coordinates,
+//                     id:1,
+//                     start_date_local:start_date_local,
+//                     start_latitude:coordinates[0].lat,
+//                     start_longitude:coordinates[0].lon,
+//                     type:'Run',
+//                     distance:e.target.get_distance(),
+//                     name:e.target.get_name(),
+//                     map:{summary_polyline:''}
+//                 });
+
+//         cleanAndSetUp();
+//         drawHeatmap(data);
+//     });
+// }
+
+function pad(n){return n<10 ? '0'+n : n}
+
+function readMultipleFiles(event) {
+    const files = event.target.files;
+    data = [];
+    for (file of files) {
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = (event) => {
+            new L.GPX(event.currentTarget.result, {async: true}).on('loaded', function(e) {
+                var layers = e.layers._layers; // first provides full coordinates, second is first point, third is end point
+                var firstKey = Object.keys(layers)[0]; // key names seem to be random numbers that iterate. Further research needed.
+                var coordinates = layers[firstKey]._latlngs;
+                // https://github.com/mpetazzoni/leaflet-gpx
+                var startTime = e.target.get_start_time();
+                var start_date_local = startTime.getFullYear() + '-' + pad(startTime.getMonth() + 1) + '-' + pad(startTime.getDate()) + 'T' + startTime.getHours() + ':' + startTime.getMinutes() + ':00';
+                data.push({coordinates:coordinates,
+                    id:data.length,
+                    start_date_local:start_date_local,
+                    start_latitude:coordinates[0].lat,
+                    start_longitude:coordinates[0].lng,
+                    type:'Run',
+                    distance:e.target.get_distance(),
+                    name:e.target.get_name(),
+                    map:{summary_polyline:''}
+                });
+                if (data.length >= files.length) { // replace this tech-debt with Promises?
+                    cleanAndSetUp();
+                    drawHeatmap(data);
+                }
+            });
+        };
+    }
 }
