@@ -44,7 +44,7 @@ function drawHeatmap(data) {
     L.control.bigImage().addTo(map);
 
     // filter out activities without GPS
-    data = data.filter(d => d.coordinates || d.map.summary_polyline);
+    data = data.filter(d => d.map.summary_polyline || d.coordinates);
 
     try {
         // setView of map on most recent starting position start_latitude,start_longitude
@@ -65,8 +65,6 @@ function drawHeatmap(data) {
         var hours = dateTime.getHours();
         var minutes = dateTime.getMinutes();
         d.time = (hours * 60) + minutes; // subtracting 5 * 60 should convert to EST I think
-        // const regex=/:\d\dZ/;
-        // d.time = d.start_date_local.split("T")[1].replace(regex,"");
 
         // create a (wide) start point for each activity so we can group them for the jumper table
         d.start_point = round(parseFloat(d.start_latitude)) + ", " + round(parseFloat(d.start_longitude));
@@ -440,7 +438,6 @@ function drawHeatmap(data) {
 // function handleFileSelect(event) {
 //     const reader = new FileReader()
 //     reader.onload = handleFileLoad;
-//     console.log(event.target.files);
 //     reader.readAsText(event.target.files[0]);
 // }
 
@@ -477,6 +474,8 @@ function drawHeatmap(data) {
 //     });
 // }
 
+function pad(n){return n<10 ? '0'+n : n}
+
 function readMultipleFiles(event) {
     const files = event.target.files;
     data = [];
@@ -488,8 +487,9 @@ function readMultipleFiles(event) {
                 var layers = e.layers._layers; // first provides full coordinates, second is first point, third is end point
                 var firstKey = Object.keys(layers)[0]; // key names seem to be random numbers that iterate. Further research needed.
                 var coordinates = layers[firstKey]._latlngs;
+                // https://github.com/mpetazzoni/leaflet-gpx
                 var startTime = e.target.get_start_time();
-                var start_date_local = startTime.getFullYear() + '-' + (startTime.getMonth() + 1) + '-' + startTime.getDate() + 'T12:00:00';
+                var start_date_local = startTime.getFullYear() + '-' + pad(startTime.getMonth() + 1) + '-' + pad(startTime.getDate()) + 'T' + startTime.getHours() + ':' + startTime.getMinutes() + ':00';
                 data.push({coordinates:coordinates,
                     id:data.length,
                     start_date_local:start_date_local,
