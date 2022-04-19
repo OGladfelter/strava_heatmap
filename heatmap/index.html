@@ -83,8 +83,7 @@
               </video>
           </div>
           <p onclick="document.getElementById('fileInput').click()">Don't use Strava? <span class="fakeLink">Click here to manually upload GPX files</span>.</p>
-          <input id="fileInput" type="file" name="file" style="display:none;"/>
-          <input type="file" onchange="readmultifiles(event)" multiple />
+          <input id="fileInput" type="file" onchange="readMultipleFiles(event)" multiple style="display:none;"/>
         </div>
       </div>
     </div>

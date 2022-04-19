@@ -1,5 +1,3 @@
-document.getElementById('fileInput').addEventListener('change', handleFileSelect);
-
 function demo() {
     d3.csv("data/data.csv", function(error, data) {
         data.forEach(d => {
@@ -438,75 +436,70 @@ function drawHeatmap(data) {
     document.getElementById("loaderModal").style.display="none";
 }
 
+// function handleFileSelect(event) {
+//     const reader = new FileReader()
+//     reader.onload = handleFileLoad;
+//     console.log(event.target.files);
+//     reader.readAsText(event.target.files[0]);
+// }
 
+// function handleFileLoad(event) {
+//     var xml = $(event.target.result)[2];
+//     var trackPoints = d3.select(xml).selectAll('trkpt');
+//     var coordinates = [];
 
-function handleFileSelect(event) {
-    const reader = new FileReader()
-    reader.onload = handleFileLoad;
-    console.log(event.target.files);
-    reader.readAsText(event.target.files[0]);
-}
+// 	trackPoints.each(function() {
+// 		var lat = parseFloat(d3.select(this).attr("lat"));
+// 		var lon = parseFloat(d3.select(this).attr("lon"));
+// 		coordinates.push({lat:lat, lon:lon});
+// 	});
 
-function handleFileLoad(event) {
-    var xml = $(event.target.result)[2];
-    var trackPoints = d3.select(xml).selectAll('trkpt');
-    var coordinates = [];
-
-	trackPoints.each(function() {
-		var lat = parseFloat(d3.select(this).attr("lat"));
-		var lon = parseFloat(d3.select(this).attr("lon"));
-		coordinates.push({lat:lat, lon:lon});
-	});
-
-    var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
-        // https://github.com/mpetazzoni/leaflet-gpx
-        var startTime = e.target.get_start_time();
-        var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
+//     var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
+//         // https://github.com/mpetazzoni/leaflet-gpx
+//         var startTime = e.target.get_start_time();
+//         var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
     
-        data = [];
-        data.push({coordinates:coordinates,
+//         data = [];
+//         data.push({coordinates:coordinates,
+//                     id:1,
+//                     start_date_local:start_date_local,
+//                     start_latitude:coordinates[0].lat,
+//                     start_longitude:coordinates[0].lon,
+//                     type:'Run',
+//                     distance:e.target.get_distance(),
+//                     name:e.target.get_name(),
+//                     map:{summary_polyline:''}
+//                 });
+
+//         cleanAndSetUp();
+//         drawHeatmap(data);
+//     });
+// }
+
+function readMultipleFiles(event) {
+    const files = event.target.files;
+    data = [];
+    for (file of files) {
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = (event) => {
+            new L.GPX(event.currentTarget.result, {async: true}).on('loaded', function(e) {
+                var layers = e.layers._layers; // first provides full coordinates, second is first point, third is end point
+                var firstKey = Object.keys(layers)[0]; // key names seem to be random numbers that iterate. Further research needed.
+                var coordinates = layers[firstKey]._latlngs;
+                var startTime = e.target.get_start_time();
+                var start_date_local = startTime.getFullYear() + '-' + (startTime.getMonth() + 1) + '-' + startTime.getDate() + 'T12:00:00';
+                data.push({coordinates:coordinates,
                     id:1,
                     start_date_local:start_date_local,
                     start_latitude:coordinates[0].lat,
-                    start_longitude:coordinates[0].lon,
+                    start_longitude:coordinates[0].lng,
                     type:'Run',
                     distance:e.target.get_distance(),
                     name:e.target.get_name(),
                     map:{summary_polyline:''}
                 });
-
-        cleanAndSetUp();
-        drawHeatmap(data);
-    });
-}
-
-function readmultifiles(event) {
-    const files = event.target.files;
-    data = [];
-    for (file of files) {
-      var reader = new FileReader();
-      reader.readAsText(file);
-      reader.fileName = file.name;
-      reader.onload = (event) => {
-        const fileName = event.target.fileName;
-        const content = event.currentTarget.result;
-        new L.GPX(event.currentTarget.result, {async: true}).on('loaded', function(e) {
-            var layers = e.layers._layers; // first provides full coordinates, second is first point, third is end point
-            var firstKey = Object.keys(layers)[0]; // key names seem to be random numbers that iterate. Further research needed.
-            var coordinates = layers[firstKey]._latlngs;
-            var startTime = e.target.get_start_time();
-            var start_date_local = startTime.getFullYear() + '-' + (startTime.getMonth() + 1) + '-' + startTime.getDate() + 'T12:00:00';
-            data.push({coordinates:coordinates,
-                id:1,
-                start_date_local:start_date_local,
-                start_latitude:coordinates[0].lat,
-                start_longitude:coordinates[0].lng,
-                type:'Run',
-                distance:e.target.get_distance(),
-                name:e.target.get_name(),
-                map:{summary_polyline:''}
             });
-        });
-      };
+        };
     }
 }
