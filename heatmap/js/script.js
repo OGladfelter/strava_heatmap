@@ -390,12 +390,12 @@ function drawHeatmap(data) {
     });
 
     // customization menu item - switch tooltip to show miles vs km
-    document.getElementById("metric").addEventListener("click", function() { 
+    document.getElementById("imperial").addEventListener("click", function() { 
         data.forEach(d => {
             paths[d.id].setTooltipContent(d.name + "<br>" + d.miles + " miles<br>" + d.start_date_local.split("T")[0]);
         });
     });
-    document.getElementById("imperial").addEventListener("click", function() { 
+    document.getElementById("metric").addEventListener("click", function() { 
         data.forEach(d => {
             paths[d.id].setTooltipContent(d.name + "<br>" + d.km + " km<br>" + d.start_date_local.split("T")[0]);
         });
