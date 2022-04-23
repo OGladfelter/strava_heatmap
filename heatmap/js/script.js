@@ -402,77 +402,31 @@ function drawHeatmap(data) {
     });
 
 
-    // customization menu item - click radio buttons to turn map tiles on/off
-    document.getElementById("noMapButton").addEventListener("click", function() { 
+    function updateMap(event) {
         // remove leaflet map tiles
         map.removeLayer(mapTilesDark);
         map.removeLayer(mapTilesLight);
         map.removeLayer(mapTilesTerrain);
-        //document.getElementById("backgroundColorPicker").style.display = "table-row";
-    });
-    document.getElementById("lightMapButton").addEventListener("click", function() { 
-        // add leaflet map tiles
-        map.removeLayer(mapTilesDark);
-        map.removeLayer(mapTilesTerrain);
-        map.addLayer(mapTilesLight);
-        //document.getElementById("backgroundColorPicker").style.display = "none";
-    });
-    document.getElementById("darkMapButton").addEventListener("click", function() { 
-        // add leaflet map tiles
-        map.removeLayer(mapTilesLight);
-        map.removeLayer(mapTilesTerrain);
-        map.addLayer(mapTilesDark);
-        //document.getElementById("backgroundColorPicker").style.display = "none";
-    });
-    document.getElementById("terrainMapButton").addEventListener("click", function() { 
-        // add leaflet map tiles
-        map.removeLayer(mapTilesLight);
-        map.removeLayer(mapTilesDark);
-        map.addLayer(mapTilesTerrain);
-        //document.getElementById("backgroundColor").disabled = true;
-    });
+        // add appropriate leaflet map tiles
+        var clickedTargetId = event.target.id;
+        if (clickedTargetId == 'lightMapButton') {
+            map.addLayer(mapTilesLight);
+        } else if (clickedTargetId == 'darkMapButton') {
+            map.addLayer(mapTilesDark);
+        } else if (clickedTargetId == 'terrainMapButton') {
+            map.addLayer(mapTilesTerrain);
+        }
+    }
 
+    // customization menu item - click radio buttons to turn map tiles on/off
+    document.getElementById("mapOptionsTd").querySelectorAll('input, label').forEach(input => {
+        input.addEventListener("click", function(e) {
+            updateMap(e);
+        });
+    });
+    
     document.getElementById("loaderModal").style.display="none";
 }
-
-// function handleFileSelect(event) {
-//     const reader = new FileReader()
-//     reader.onload = handleFileLoad;
-//     reader.readAsText(event.target.files[0]);
-// }
-
-// function handleFileLoad(event) {
-//     var xml = $(event.target.result)[2];
-//     var trackPoints = d3.select(xml).selectAll('trkpt');
-//     var coordinates = [];
-
-// 	trackPoints.each(function() {
-// 		var lat = parseFloat(d3.select(this).attr("lat"));
-// 		var lon = parseFloat(d3.select(this).attr("lon"));
-// 		coordinates.push({lat:lat, lon:lon});
-// 	});
-
-//     var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
-//         // https://github.com/mpetazzoni/leaflet-gpx
-//         var startTime = e.target.get_start_time();
-//         var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
-    
-//         data = [];
-//         data.push({coordinates:coordinates,
-//                     id:1,
-//                     start_date_local:start_date_local,
-//                     start_latitude:coordinates[0].lat,
-//                     start_longitude:coordinates[0].lon,
-//                     type:'Run',
-//                     distance:e.target.get_distance(),
-//                     name:e.target.get_name(),
-//                     map:{summary_polyline:''}
-//                 });
-
-//         cleanAndSetUp();
-//         drawHeatmap(data);
-//     });
-// }
 
 function pad(n){return n<10 ? '0'+n : n}
 

@@ -87,6 +87,9 @@ tr.rowButton:hover{
 td.menuItemLabel{
     width: 30%;
 }
+#mapOptionsTd label {
+    cursor: pointer;
+}
 tr{
     border-top: 1px solid rgb(220, 220, 220);
 }
