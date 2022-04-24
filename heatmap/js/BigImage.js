@@ -223,6 +223,23 @@
                 return;
             }
 
+            // activities outside the date range also should not be included in screenshot
+            var dates = $('#dateSlider').slider("option", "values");
+            var minEpoch = new Date(dates[0] * 1000).setHours(0,0,0,0);
+            var maxEpoch = new Date(dates[1] * 1000).setHours(0,0,0,0);
+            // reformat EPOS seconds back into date object - must be of time 00:00:00 to match strava date that I pulled
+            var minDate = new Date(minEpoch);
+            var maxDate = new Date(maxEpoch);
+            if (value.options.date < minDate || value.options.date > maxDate) {
+                return;
+            }
+
+            // finally, don't include activities outside the time range
+            var times = $('#timeSlider').slider("option", "values");
+            if (value.options.startTime < times[0] || value.options.startTime > times[1]) {
+                return;
+            }
+
             let self = this;
 
             self.ctx.beginPath();
