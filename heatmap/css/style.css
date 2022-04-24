@@ -87,10 +87,24 @@ tr.rowButton:hover{
 td.menuItemLabel{
     width: 30%;
 }
-tr{
+#mapOptionsTd span {
+    cursor: pointer;
+    padding: 2.5px;
+}
+#mapOptionsTd span:hover {
+    background-color: rgba(0, 255, 255, 0.25);
+    border: 1px solid rgba(0, 255, 255, 0.5);
+    border-radius: 5px;
+}
+.selectedSpan {
+    background-color: rgba(0, 255, 255, 0.5) !important;
+    border: 1px solid cyan !important;
+    border-radius: 5px;
+}
+tr {
     border-top: 1px solid rgb(220, 220, 220);
 }
-td{
+td {
     /* border: 1px solid gray; */
     padding: 10;
     text-align: middle;

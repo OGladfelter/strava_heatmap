@@ -108,7 +108,7 @@ function reverse_geocode(lat, lng, row_id){
     
     var latlng = String(lat) + ", " + String(lng);
 
-    // don't recall API if we already have for this latlng
+    // don't duplicatively call API if we already have for this latlng
     if (latlng in latlngDict) {
         document.getElementById(row_id).innerHTML = latlngDict[latlng];
         return;

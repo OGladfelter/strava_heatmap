@@ -146,20 +146,12 @@
             <td style="width:30%;">
               Map Type
             </td>
-            <td>
-              <div>
-                <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
-                <label for="mapOption1">None</label>
-              
-                <input type="radio" id="terrainMapButton" name="mapOptions" value="mapOption4">
-                <label for="mapOption4">Terrain</label>
-              </div>
-              <div>
-                <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
-                <label for="mapOption2">Light</label>
-
-                <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
-                <label for="mapOption3">Dark</label>
+            <td id="mapOptionsTd">
+              <div style="display:flex; justify-content:space-around; cursor:hover;">
+                <span id="noMapButton" class="selectedSpan">None</span>
+                <span id="terrainMapButton">Terrain</span>
+                <span id="lightMapButton">Light</span>
+                <span id="darkMapButton">Dark</span>
               </div>
             </td>
           </tr>
@@ -205,40 +197,40 @@
       </div>
       <!--  -->
 
-    <!-- a menu for programatically jumping around the map -->
-    <div id="jumperMenu" class="menu">
-      <div id="menuHeaderContainer2" class="menuHeaderContainer">
-        <table style="width:100%;">
-          <tr style="width:100%;">
-            <td class="menuHeader">Jump to...</td>
-            <td id="menuButton2" class="menuButton">+</td>
-          </tr>
-        </table>
-      </div>
+      <!-- a menu for programatically jumping around the map -->
+      <div id="jumperMenu" class="menu">
+        <div id="menuHeaderContainer2" class="menuHeaderContainer">
+          <table style="width:100%;">
+            <tr style="width:100%;">
+              <td class="menuHeader">Jump to...</td>
+              <td id="menuButton2" class="menuButton">+</td>
+            </tr>
+          </table>
+        </div>
 
-      <table id="jumperTable" class="filterMenuTable"></table>
-    </div>
-    <!--  -->
-    
-    <!-- modal -->
-    <div id="printModal" class="printModal">
-      <div class="modal-content-3">
-        <span onclick="document.getElementById('printModal').style.display='none';" class="closeButton">&times;</span>
-        <h1>Choose your screenshot resolution</h1>
-          <div class="row">
-            <div id="normalResolutionButton" class="column">
-                <h2>Normal-resolution</h2>
-                <p>Ideal for storing and sharing digitally</p>
-                <div id="downloadButton1"><i class="fa fa-download"></i></div>
-            </div>
-            <div id="highResolutionButton" class="column" style="border-left:1px #C0C0C0 solid;">
-                <h2>High-resolution</h2>
-                <p>Suitable for printing out into a poster</p>
-                <div id="downloadButton2"><i class="fa fa-download"></i></div>
-            </div>
-          </div>
+        <table id="jumperTable" class="filterMenuTable"></table>
       </div>
-    </div>
+      <!--  -->
+      
+      <!-- modal -->
+      <div id="printModal" class="printModal">
+        <div class="modal-content-3">
+          <span onclick="document.getElementById('printModal').style.display='none';" class="closeButton">&times;</span>
+          <h1>Choose your screenshot resolution</h1>
+            <div class="row">
+              <div id="normalResolutionButton" class="column">
+                  <h2>Normal-resolution</h2>
+                  <p>Ideal for storing and sharing digitally</p>
+                  <div id="downloadButton1"><i class="fa fa-download"></i></div>
+              </div>
+              <div id="highResolutionButton" class="column" style="border-left:1px #C0C0C0 solid;">
+                  <h2>High-resolution</h2>
+                  <p>Suitable for printing out into a poster</p>
+                  <div id="downloadButton2"><i class="fa fa-download"></i></div>
+              </div>
+            </div>
+        </div>
+      </div>
     
     </div>
 

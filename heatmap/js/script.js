@@ -402,36 +402,31 @@ function drawHeatmap(data) {
     });
 
 
-    // customization menu item - click radio buttons to turn map tiles on/off
-    document.getElementById("noMapButton").addEventListener("click", function() { 
+    function updateMap(event) {
         // remove leaflet map tiles
         map.removeLayer(mapTilesDark);
         map.removeLayer(mapTilesLight);
         map.removeLayer(mapTilesTerrain);
-        //document.getElementById("backgroundColorPicker").style.display = "table-row";
-    });
-    document.getElementById("lightMapButton").addEventListener("click", function() { 
-        // add leaflet map tiles
-        map.removeLayer(mapTilesDark);
-        map.removeLayer(mapTilesTerrain);
-        map.addLayer(mapTilesLight);
-        //document.getElementById("backgroundColorPicker").style.display = "none";
-    });
-    document.getElementById("darkMapButton").addEventListener("click", function() { 
-        // add leaflet map tiles
-        map.removeLayer(mapTilesLight);
-        map.removeLayer(mapTilesTerrain);
-        map.addLayer(mapTilesDark);
-        //document.getElementById("backgroundColorPicker").style.display = "none";
-    });
-    document.getElementById("terrainMapButton").addEventListener("click", function() { 
-        // add leaflet map tiles
-        map.removeLayer(mapTilesLight);
-        map.removeLayer(mapTilesDark);
-        map.addLayer(mapTilesTerrain);
-        //document.getElementById("backgroundColor").disabled = true;
-    });
+        // add appropriate leaflet map tiles
+        var clickedTargetId = event.target.id;
+        if (clickedTargetId == 'lightMapButton') {
+            map.addLayer(mapTilesLight);
+        } else if (clickedTargetId == 'darkMapButton') {
+            map.addLayer(mapTilesDark);
+        } else if (clickedTargetId == 'terrainMapButton') {
+            map.addLayer(mapTilesTerrain);
+        }
+    }
 
+    // customization menu item - click radio buttons to turn map tiles on/off
+    document.getElementById("mapOptionsTd").querySelectorAll('span').forEach(input => {
+        input.addEventListener("click", function(e) {
+            updateMap(e);
+            document.getElementById("mapOptionsTd").querySelectorAll('span').forEach(input => input.classList.remove('selectedSpan'));
+            input.classList.add('selectedSpan');
+        });
+    });
+    
     document.getElementById("loaderModal").style.display="none";
 }
 
