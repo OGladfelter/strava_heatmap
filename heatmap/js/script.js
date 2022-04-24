@@ -191,7 +191,9 @@ function drawHeatmap(data) {
                 lineJoin: 'round',
                 name: data[i].name,
                 activity: data[i].type,
-                id: data[i].id
+                id: data[i].id,
+                date: data[i].date,
+                startTime: data[i].time
             },
         )
         .on('click', function() { 
