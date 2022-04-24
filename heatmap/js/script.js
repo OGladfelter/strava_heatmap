@@ -433,7 +433,7 @@ function drawHeatmap(data) {
         });
     });
     
-    //document.getElementById("loaderModal").style.display="none";
+    document.getElementById("loaderModal").style.display="none";
 }
 
 // function handleFileSelect(event) {
