@@ -21,10 +21,12 @@ function drawHeatmap(data) {
     document.getElementById("menuContainer").style.display = 'block';
 
     // read map styles
-    mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 50,
-            continuousWorld: false,
-            noWrap: true
+    mapTilesTerrain = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 28,
+        continuousWorld: false,
+        noWrap: true
     });
     mapTilesLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 28,
