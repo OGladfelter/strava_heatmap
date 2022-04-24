@@ -316,10 +316,15 @@ input[type=color]{
     to {top:10%;}
   }
   
-  .modal-content-2 h1{
+.modal-content-2 h1 {
     color: whitesmoke;
     text-align: center;
     margin: 0;
+}
+
+.modal-content-2 h4 {
+    color: whitesmoke;
+    text-align: center;
 }
 
   h2{

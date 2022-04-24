@@ -91,7 +91,7 @@ function reAuthorize(refreshToken){
             // save token
             token = response.access_token;
 
-            // get 30 activities
+            // get 200 activities
             getActivities(1);
         }
     });  
@@ -99,7 +99,7 @@ function reAuthorize(refreshToken){
 
 function getActivities(pageNum){
     
-    console.log(pageNum);
+    // console.log(pageNum);
 
     const activities_link = `https://www.strava.com/api/v3/activities?per_page=200&access_token=` + token + "&page=" + pageNum;
     fetch(activities_link)
@@ -109,6 +109,7 @@ function getActivities(pageNum){
         // if this page had 200 activities, then there's likely another page
         if (json.length == 200){
             strava_data = strava_data.concat(json); // save contents from this page, run another call to the next page
+            document.getElementById("activityCounter").innerHTML = (200 * pageNum) + ' activities found...';
             getActivities(pageNum + 1); // recursion!!
         }
         else if (json.length < 200){ // we've reached the final page
