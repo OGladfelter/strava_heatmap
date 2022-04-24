@@ -151,7 +151,7 @@ function drawHeatmap(data) {
             var colorInput = document.createElement("input");
             colorInput.id = activity + "Color";
             colorInput.type = "color";
-            colorInput.value = "#00e0e0";
+            colorInput.value = "#00C2C2";
             colorInput.addEventListener("input", function(){
                 var subset = data.filter(function(d){return d.type == activity});
                 for (i=0; i<subset.length; i++){
