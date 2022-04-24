@@ -185,7 +185,7 @@ function drawHeatmap(data) {
         paths[data[i].id] = L.polyline(
             coordinates,
             {
-                color: 'rgb(0,224,224)',
+                color: 'rgb(0,194,194)',
                 weight: 2,
                 opacity: 1,
                 lineJoin: 'round',
