@@ -148,10 +148,10 @@
             </td>
             <td id="mapOptionsTd">
               <div style="display:flex; justify-content:space-around; cursor:hover;">
-                <span id="noMapButton" class="selectedSpan">None</span>
-                <span id="terrainMapButton">Terrain</span>
-                <span id="lightMapButton">Light</span>
-                <span id="darkMapButton">Dark</span>
+                <span id="noMapButton" class="selectedSpan menuOptions">None</span>
+                <span id="terrainMapButton" class="menuOptions">Terrain</span>
+                <span id="lightMapButton" class="menuOptions">Light</span>
+                <span id="darkMapButton" class="menuOptions">Dark</span>
               </div>
             </td>
           </tr>
@@ -182,14 +182,8 @@
           <tr>
             <td colspan="2">
               <div style="display:flex; justify-content:space-evenly;">
-                <div>
-                  <input type="radio" id="metric" name="tooltipOptions" checked>
-                  <label for="mapOption1">Metric</label>
-                </div>
-                <div>
-                  <input type="radio" id="imperial" name="tooltipOptions">
-                  <label for="mapOption4">Imperial</label>
-                </div>
+                  <span id="imperial" class="selectedSpan menuOptions">Imperial</span>
+                  <span id="metric" class="menuOptions">Metric</span>
               </div>
             </td>
           </tr>
