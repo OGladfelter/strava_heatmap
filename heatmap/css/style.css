@@ -87,11 +87,11 @@ tr.rowButton:hover{
 td.menuItemLabel{
     width: 30%;
 }
-#mapOptionsTd span {
+.menuOptions {
     cursor: pointer;
     padding: 2.5px;
 }
-#mapOptionsTd span:hover {
+.menuOptions:hover {
     background-color: rgba(0, 255, 255, 0.25);
     border: 1px solid rgba(0, 255, 255, 0.5);
     border-radius: 5px;
@@ -316,10 +316,15 @@ input[type=color]{
     to {top:10%;}
   }
   
-  .modal-content-2 h1{
+.modal-content-2 h1 {
     color: whitesmoke;
     text-align: center;
     margin: 0;
+}
+
+.modal-content-2 h4 {
+    color: whitesmoke;
+    text-align: center;
 }
 
   h2{

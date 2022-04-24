@@ -49,7 +49,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.7.0/gpx.min.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.min.css?v=3" />
+    <link rel="stylesheet" href="css/style.min.css?v=4" />
   </head>
 
   <body>
@@ -60,6 +60,7 @@
       <div id="loader" class="modal-content-2">
         <h1>Loading...</h1>
         <div class="loader"></div>
+        <h4 id="activityCounter">0 activities found...</h4>
       </div>
     </div>
 
@@ -148,10 +149,10 @@
             </td>
             <td id="mapOptionsTd">
               <div style="display:flex; justify-content:space-around; cursor:hover;">
-                <span id="noMapButton" class="selectedSpan">None</span>
-                <span id="terrainMapButton">Terrain</span>
-                <span id="lightMapButton">Light</span>
-                <span id="darkMapButton">Dark</span>
+                <span id="noMapButton" class="selectedSpan menuOptions">None</span>
+                <span id="terrainMapButton" class="menuOptions">Terrain</span>
+                <span id="lightMapButton" class="menuOptions">Light</span>
+                <span id="darkMapButton" class="menuOptions">Dark</span>
               </div>
             </td>
           </tr>
@@ -163,7 +164,7 @@
             <td>Line Color</td>
             <td>
               <div style="width:33%;display:inline-block;">
-                <input id="lineColor" type="color" value="#00e0e0">
+                <input id="lineColor" type="color" value="#00C2C2">
               </div>
               <div class="dropdown" style="display:inline-block;">
                 <button class="dropColorbtn" onmouseover="showActivityColorMenu()" id="colorByActivityButton">By activity</button>
@@ -182,14 +183,8 @@
           <tr>
             <td colspan="2">
               <div style="display:flex; justify-content:space-evenly;">
-                <div>
-                  <input type="radio" id="metric" name="tooltipOptions" checked>
-                  <label for="mapOption1">Metric</label>
-                </div>
-                <div>
-                  <input type="radio" id="imperial" name="tooltipOptions">
-                  <label for="mapOption4">Imperial</label>
-                </div>
+                  <span id="imperial" class="selectedSpan menuOptions">Imperial</span>
+                  <span id="metric" class="menuOptions">Metric</span>
               </div>
             </td>
           </tr>
@@ -234,10 +229,10 @@
     
     </div>
 
-    <script src="js/script.js?v=5"></script>
-    <script src="js/ui.js?v=2"></script>
-    <script src="js/strava_api.js?v=3"></script>
-    <script src="js/BigImage.js?v=2"></script>
+    <script src="js/script.min.js?v=6"></script>
+    <script src="js/ui.min.js?v=2"></script>
+    <script src="js/strava_api.min.js?v=4"></script>
+    <script src="js/BigImage.min.js?v=2"></script>
 
   </body>
 </html>

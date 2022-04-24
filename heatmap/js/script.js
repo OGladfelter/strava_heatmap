@@ -21,10 +21,12 @@ function drawHeatmap(data) {
     document.getElementById("menuContainer").style.display = 'block';
 
     // read map styles
-    mapTilesTerrain = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 50,
-            continuousWorld: false,
-            noWrap: true
+    mapTilesTerrain = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 28,
+        continuousWorld: false,
+        noWrap: true
     });
     mapTilesLight = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
         maxZoom: 28,
@@ -149,7 +151,7 @@ function drawHeatmap(data) {
             var colorInput = document.createElement("input");
             colorInput.id = activity + "Color";
             colorInput.type = "color";
-            colorInput.value = "#00e0e0";
+            colorInput.value = "#00C2C2";
             colorInput.addEventListener("input", function(){
                 var subset = data.filter(function(d){return d.type == activity});
                 for (i=0; i<subset.length; i++){
@@ -183,7 +185,7 @@ function drawHeatmap(data) {
         paths[data[i].id] = L.polyline(
             coordinates,
             {
-                color: 'rgb(0,224,224)',
+                color: 'rgb(0,194,194)',
                 weight: 2,
                 opacity: 1,
                 lineJoin: 'round',
@@ -391,11 +393,15 @@ function drawHeatmap(data) {
 
     // customization menu item - switch tooltip to show miles vs km
     document.getElementById("imperial").addEventListener("click", function() { 
+        document.getElementById("metric").classList.remove('selectedSpan');
+        this.classList.add('selectedSpan');
         data.forEach(d => {
             paths[d.id].setTooltipContent(d.name + "<br>" + d.miles + " miles<br>" + d.start_date_local.split("T")[0]);
         });
     });
     document.getElementById("metric").addEventListener("click", function() { 
+        document.getElementById("imperial").classList.remove('selectedSpan');
+        this.classList.add('selectedSpan');
         data.forEach(d => {
             paths[d.id].setTooltipContent(d.name + "<br>" + d.km + " km<br>" + d.start_date_local.split("T")[0]);
         });
