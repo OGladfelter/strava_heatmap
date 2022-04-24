@@ -430,6 +430,45 @@ function drawHeatmap(data) {
     document.getElementById("loaderModal").style.display="none";
 }
 
+// function handleFileSelect(event) {
+//     const reader = new FileReader()
+//     reader.onload = handleFileLoad;
+//     reader.readAsText(event.target.files[0]);
+// }
+
+// function handleFileLoad(event) {
+//     var xml = $(event.target.result)[2];
+//     var trackPoints = d3.select(xml).selectAll('trkpt');
+//     var coordinates = [];
+
+// 	trackPoints.each(function() {
+// 		var lat = parseFloat(d3.select(this).attr("lat"));
+// 		var lon = parseFloat(d3.select(this).attr("lon"));
+// 		coordinates.push({lat:lat, lon:lon});
+// 	});
+
+//     var gpxInfo = new L.GPX(event.target.result, {async: true}).on('loaded', function(e) {
+//         // https://github.com/mpetazzoni/leaflet-gpx
+//         var startTime = e.target.get_start_time();
+//         var start_date_local = startTime.getFullYear() + '-' + startTime.getMonth() + 1 + '-' + startTime.getDay() + 'T12:00:00';
+    
+//         data = [];
+//         data.push({coordinates:coordinates,
+//                     id:1,
+//                     start_date_local:start_date_local,
+//                     start_latitude:coordinates[0].lat,
+//                     start_longitude:coordinates[0].lon,
+//                     type:'Run',
+//                     distance:e.target.get_distance(),
+//                     name:e.target.get_name(),
+//                     map:{summary_polyline:''}
+//                 });
+
+//         cleanAndSetUp();
+//         drawHeatmap(data);
+//     });
+// }
+
 function pad(n){return n<10 ? '0'+n : n}
 
 function readMultipleFiles(event) {
