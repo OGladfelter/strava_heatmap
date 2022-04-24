@@ -147,19 +147,11 @@
               Map Type
             </td>
             <td id="mapOptionsTd">
-              <div>
-                <input type="radio" id="noMapButton" name="mapOptions" value="mapOption1" checked>
-                <label for="mapOption1">None</label>
-              
-                <input type="radio" id="terrainMapButton" name="mapOptions" value="mapOption4">
-                <label for="mapOption4" id="terrainMapButton">Terrain</label>
-              </div>
-              <div>
-                <input type="radio" id="lightMapButton" name="mapOptions" value="mapOption2">
-                <label for="mapOption2" id="lightMapButton">Light</label>
-
-                <input type="radio" id="darkMapButton" name="mapOptions" value="mapOption3">
-                <label for="mapOption3" id="darkMapButton">Dark</label>
+              <div style="display:flex; justify-content:space-around; cursor:hover;">
+                <span id="noMapButton" class="selectedSpan">None</span>
+                <span id="terrainMapButton">Terrain</span>
+                <span id="lightMapButton">Light</span>
+                <span id="darkMapButton">Dark</span>
               </div>
             </td>
           </tr>

@@ -419,9 +419,11 @@ function drawHeatmap(data) {
     }
 
     // customization menu item - click radio buttons to turn map tiles on/off
-    document.getElementById("mapOptionsTd").querySelectorAll('input, label').forEach(input => {
+    document.getElementById("mapOptionsTd").querySelectorAll('span').forEach(input => {
         input.addEventListener("click", function(e) {
             updateMap(e);
+            document.getElementById("mapOptionsTd").querySelectorAll('span').forEach(input => input.classList.remove('selectedSpan'));
+            input.classList.add('selectedSpan');
         });
     });
     
