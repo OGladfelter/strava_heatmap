@@ -46,7 +46,7 @@ function drawHeatmap(data) {
     L.control.bigImage().addTo(map);
 
     // filter out activities without GPS
-    data = data.filter(d => d.map.summary_polyline || d.coordinates);
+    data = data.filter(d => (d.map && d.map.summary_polyline) || d.coordinates);
 
     try {
         // setView of map on most recent starting position start_latitude,start_longitude
